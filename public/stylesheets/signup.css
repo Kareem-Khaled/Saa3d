@@ -1,0 +1,118 @@
+* {
+  transition: 0.3s linear;
+}
+body main {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: url('../images/login.jpg');
+  background-size: cover;
+  display: flex;
+  flex-flow: row nowrap;
+}
+body main::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.formcontainer {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.formcontainer form {
+  width: 450px;
+  height: max-content;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+.formcontainer form input:not([type='checkbox']) {
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  border-radius: 15px;
+  border: 1px solid #707070;
+  margin: 5px 0px 25px 0px;
+}
+.formcontainer form input:not([type='checkbox']):focus {
+  outline: none;
+  border: 1px solid #365a0c;
+}
+button {
+  width: 49%;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  display: inline-block;
+  border: none;
+  background-color: transparent;
+  transition: 0.3s linear;
+}
+select {
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  border-radius: 15px;
+  border: 1px solid #707070;
+  margin: 5px 0px 20px 0px;
+}
+select:focus {
+  outline: none;
+  border: 1px solid #365a0c;
+}
+[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+}
+[for='accept'] {
+  font-weight: bold;
+}
+[type='submit'] {
+  background-color: #365a0c;
+  color: white;
+  transition: 0.3s linear;
+}
+[type='submit']:hover {
+  background-color: white;
+  color: #365a0c;
+}
+/* start aside */
+.aside {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.aside img {
+  width: 250px;
+  height: 350px;
+}
+.aside p {
+  color: white;
+  line-height: 2;
+  max-width: 500px;
+  text-align: center;
+}
+.selected {
+  font-weight: bold;
+  border-bottom: 1px solid #365a0c;
+}
+.log {
+  display: none;
+}
+.log,
+.sign {
+  transition: 0.3s linear;
+}
