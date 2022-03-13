@@ -12,16 +12,15 @@ body {
 }
 
 .logo {
-    margin: auto;
-    padding: auto;
-    width: 17rem;
-    height: 20rem;
-}
-
-.btn-secondary {
-    color: #7a7a7a;
+    margin-inline: auto;
+    height: 18rem;
 }
 
 .btn-secondary:hover {
-    color: #f5f5f5;
+    background-color: #4CAF50;
+}
+
+p{
+    padding-inline: 5rem;
+    font-size: 20px;
 }
