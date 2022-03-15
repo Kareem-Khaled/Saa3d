@@ -13,9 +13,9 @@ module.exports.renderProfile = (req, res) => {
 // registering new user and logging him in and redirect him to all campgrounds page
 module.exports.register = async (req, res) => {
     try {
-        const { remail, rusername, rpassword, country, gender } = req.body;
-        const user = new User({ email:remail, username:rusername, country, gender });
-        console.log(rpassword);
+        const { remail, rusername, rpassword, city, gender } = req.body;
+        const user = new User({ email:remail, username:rusername, city, gender });
+        console.log(user);
         const registeredUser = await User.register(user, rpassword);
         req.login(registeredUser, err => {
             if (err) return next(err);

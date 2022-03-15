@@ -10,7 +10,7 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
-    country: String,
+    city: String,
     gender: String
 });
 
