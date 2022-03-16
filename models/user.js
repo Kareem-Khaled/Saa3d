@@ -8,8 +8,7 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
-        dropDups: true
+        unique: true
     },
     city: String,
     gender: String

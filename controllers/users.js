@@ -13,16 +13,20 @@ module.exports.renderProfile = (req, res) => {
 // registering new user and logging him in and redirect him to all campgrounds page
 module.exports.register = async (req, res) => {
     try {
-        const { remail, rusername, rpassword, city, gender } = req.body;
+        const { remail, rusername, rpassword,confirmPassword ,city, gender } = req.body;
         const user = new User({ email:remail, username:rusername, city, gender });
         const registeredUser = await User.register(user, rpassword);
-        console.log(registeredUser);
+        if(rpassword != confirmPassword){
+            throw new Error("The two passwords aren't identical");   
+        }
         req.login(registeredUser, err => {
             if (err) return next(err);
             req.flash('success', 'Welcome To Saa3d!');
             res.redirect('/profile');
         })
     } catch (e) {
+        if(e.message.includes('E11000'))
+           e.message = 'A user with the given email is already registered';
         req.flash('error', e.message);
         res.redirect('/register');
     }
