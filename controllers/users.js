@@ -45,5 +45,5 @@ module.exports.login = (req, res) => {
 module.exports.logout = (req, res) => {
     req.logout();
     req.flash('success', 'Good Bye');
-    res.redirect('/home');
+    res.redirect('/');
 };
