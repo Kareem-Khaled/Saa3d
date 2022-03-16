@@ -15,8 +15,8 @@ module.exports.register = async (req, res) => {
     try {
         const { remail, rusername, rpassword, city, gender } = req.body;
         const user = new User({ email:remail, username:rusername, city, gender });
-        console.log(user);
         const registeredUser = await User.register(user, rpassword);
+        console.log(registeredUser);
         req.login(registeredUser, err => {
             if (err) return next(err);
             req.flash('success', 'Welcome To Saa3d!');

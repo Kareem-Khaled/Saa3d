@@ -8,13 +8,20 @@
     <title>Saa3d - log in or sign up</title>
     <link rel="icon" type="image/png" href="../images/logo.png">
     <link rel="stylesheet" href="/stylesheets/login&signup.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body class="d-flex text-center text-white bg-dark">
     <div class="cover-container d-flex w-100 h-100 mx-auto flex-column position-relative">
+
       <div class="mt-5 me-5 d-none d-md-block position-absolute top-0 end-0">
         <img class= "logo" src="../images/logo.png"/>
+        <div class="d-none d-md-block position-absolute top-10 end-0 text-center">
+          <p>Lorem aaaaaaaaaaaaaaaa asd</p>
+          <p class="text-uppercase" >- Kareem Khaled</p>
+        </div>
       </div>
+
       <%- include('../partials/flash') %>
       <main class="mt-5">
           <div class="row">
@@ -25,8 +32,8 @@
               <a class= "<%= (path == '/register' ? "signUpBtn btn btn-lg btn-block selected": "signUpBtn btn btn-lg btn-block" ) %>">Sign Up</a>
             </span>
           </div>
-<form class="row needs-validation" method="POST" novalidate>
 
+<form class="row needs-validation" method="POST" novalidate>
   <section class="signUp" style=<%- (path == '/register' ? "display:block;": "display:none;" ) %>>
   <div class="row">
   <span class="col-xs-1 col-md-4">
@@ -76,12 +83,10 @@
   </span>
 </div>
 
-  <div class="row">
+<div class="row">
   <span class="col-xs-1 col-md-4">
-    <input type="text" class="form-control signInput" name="city" placeholder="City" <%- (path == '/register' ? "required": "" ) %>>
-    <div class="invalid-feedback">
-      Please provide a valid city.
-    </div>
+    <select class="form-control" name="city">
+    </select>
   </span>
 </div>
 
@@ -98,7 +103,6 @@
   <div class="row">
   <span class="col-xs-1 col-md-4">
     <input class="btn btn-lg btn-success" formaction="/register" type="submit" value="Sign Up" name="register" >
-
   </span>
 </div>
 </section>
@@ -112,7 +116,7 @@
       Looks good!
     </div>
     <div class="invalid-feedback">
-      Please choose a username.
+      Please enter your username.
     </div>
   </span>
 </div>
@@ -124,7 +128,7 @@
       Looks good!
     </div>
     <div class="invalid-feedback">
-      Please enter a strong password.
+      Please enter your password.
     </div>
   </span>
 </div>
