@@ -10,6 +10,10 @@ module.exports.renderProfile = (req, res) => {
     res.render('users/profile');
 };
 
+module.exports.renderMain = (req, res) => {
+    res.render('users/main');
+};
+
 // registering new user and logging him in and redirect him to all campgrounds page
 module.exports.register = async (req, res) => {
     try {
@@ -39,6 +43,11 @@ module.exports.login = (req, res) => {
     const redirectUrl = '/home';
     delete req.session.returnTo;
     res.redirect('/profile');
+};
+
+// main page
+module.exports.main = (req, res) => {
+    res.redirect('/main');
 };
 
 // logging user out
