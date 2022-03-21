@@ -16,3 +16,23 @@ body {
   body::-webkit-scrollbar-thumb {
     background-color: rgb(135, 93, 252);
    }
+   
+   .locationIcon{
+      color: green;
+   }
+
+.pointIcon{
+    color: gold;
+ }
+
+p{
+  display: inline;
+  color: black;
+}
+
+.likeIcon{
+  color: black;
+}
+.likeIcon:hover{
+  color: green;
+}

@@ -10,19 +10,15 @@ module.exports.renderProfile = (req, res) => {
     res.render('users/profile');
 };
 
-module.exports.renderMain = (req, res) => {
-    res.render('users/main');
-};
-
 // registering new user and logging him in and redirect him to all campgrounds page
 module.exports.register = async (req, res) => {
     try {
         const { remail, rusername, rpassword,confirmPassword ,city, gender } = req.body;
-        const user = new User({ email:remail, username:rusername, city, gender });
-        const registeredUser = await User.register(user, rpassword);
+        const user = new User({ email:remail, username:rusername, city, gender,point:0 });
         if(rpassword != confirmPassword){
             throw new Error("The two passwords aren't identical");   
         }
+        const registeredUser = await User.register(user, rpassword);
         req.login(registeredUser, err => {
             if (err) return next(err);
             req.flash('success', 'Welcome To Saa3d!');
@@ -45,10 +41,6 @@ module.exports.login = (req, res) => {
     res.redirect('/profile');
 };
 
-// main page
-module.exports.main = (req, res) => {
-    res.redirect('/main');
-};
 
 // logging user out
 module.exports.logout = (req, res) => {

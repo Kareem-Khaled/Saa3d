@@ -18,6 +18,7 @@ const ejsMate = require("ejs-mate");
 
 // get routes
 const userRoutes = require("./routes/users");
+const postRoutes = require("./routes/posts");
 
 // to use mongodb
 const mongoose = require("mongoose");
@@ -82,6 +83,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", userRoutes);
+app.use("/", postRoutes);
 
 app.get("/", (req, res) => {
     res.render("home");

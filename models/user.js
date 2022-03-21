@@ -11,7 +11,8 @@ const userSchema = new Schema({
         unique: true
     },
     city: String,
-    gender: String
+    gender: String,
+    point: Number
 });
 
 // adding username & password & make sure that username is unique & more functions

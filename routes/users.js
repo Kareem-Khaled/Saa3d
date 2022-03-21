@@ -19,8 +19,6 @@ router.route('/login')
 
 router.get('/profile',isLoggedIn, users.renderProfile);
 
-router.get('/main',isLoggedIn ,users.renderMain);
-
 router.get('/logout', users.logout);
 
 
