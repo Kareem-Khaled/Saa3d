@@ -20,7 +20,16 @@ const addUsers = async() =>{
     await User.deleteMany({});
     for (let i = 0; i < users.length; i++) {
         let points = Math.floor(Math.random() * 100);
-        const user = new User({ email:users[i]+'@gmail.com', username:users[i], city:'Assiut', gender:'male', point:points });
+        let services = Math.floor(Math.random() * 20);
+        const user = new User({ 
+            email:users[i]+'@gmail.com',
+            username:users[i],
+            city:'Assiut',
+            gender:'male',
+            point:points,
+            service:services,
+            joinedAt: Date.now()
+        });
         const registeredUser = await User.register(user, '123');
     }
 }
@@ -32,12 +41,12 @@ const addPosts = async () => {
         let points = Math.floor(Math.random() * 100);
         let user = users[id];
         const post = new Post({
-            author: '6237c4a3924fd96fcff0054c',
+            author: '623a6a21c0fbdca414765346',
             header:'This is a good header',
             body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quos, cupiditate quod doloremque facere iure, perspiciatis a aspernatur, recusandae laboriosam quis quaerat sit qui vero ut expedita tempore atque asperiores. Some quick example text to build on the card title and make up the bulk of the card's content." ,
             point: points,
             createdAt: Date.now(),
-            comments:[]
+            comments:[],
         })
         await post.save();
     }

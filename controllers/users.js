@@ -7,7 +7,7 @@ module.exports.renderRegister = (req, res) => {
 };
 
 module.exports.renderProfile = (req, res) => {
-    res.render('users/profile');
+    res.render('users/profile', {user: req.user});
 };
 
 // registering new user and logging him in and redirect him to all campgrounds page

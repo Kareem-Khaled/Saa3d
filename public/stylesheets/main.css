@@ -27,7 +27,6 @@ body {
 
 p{
   display: inline;
-  color: black;
 }
 
 .likeIcon{
@@ -35,4 +34,7 @@ p{
 }
 .likeIcon:hover{
   color: green;
+}
+.dropdown{
+  cursor: pointer;
 }

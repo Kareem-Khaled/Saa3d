@@ -12,7 +12,9 @@ const userSchema = new Schema({
     },
     city: String,
     gender: String,
-    point: Number
+    point: Number,
+    service: Number,
+    joinedAt: Date
 });
 
 // adding username & password & make sure that username is unique & more functions

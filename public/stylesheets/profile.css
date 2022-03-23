@@ -1,0 +1,16 @@
+body {
+    background-color: #eee;
+}
+
+.profileImg{
+    width: 9rem;
+    height: 8rem;
+}
+  
+.onlineIcon{
+  color: green;
+}
+
+.starIcon{
+  color: gold;
+}
