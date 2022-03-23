@@ -14,7 +14,15 @@ module.exports.renderProfile = (req, res) => {
 module.exports.register = async (req, res) => {
     try {
         const { remail, rusername, rpassword,confirmPassword ,city, gender } = req.body;
-        const user = new User({ email:remail, username:rusername, city, gender,point:0 });
+        const user = new User({ 
+            email:remail, 
+            username:rusername, 
+            city, 
+            gender,
+            point: 0,
+            service: 0,
+            joinedAt: Date.now()
+        });
         if(rpassword != confirmPassword){
             throw new Error("The two passwords aren't identical");   
         }

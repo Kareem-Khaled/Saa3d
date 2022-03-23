@@ -22,7 +22,11 @@
                 <div class="card mb-3">
                 <div class="card-body d-flex justify-content-center">
                     <div class="row">
-                        <img src="/images/maleNoProfile.jpg" class="profileImg rounded-circle mx-auto">
+                        <% if(user.gender == 'male'){ %> 
+                           <img src="/images/maleNoProfile.jpg" class="profileImg rounded-circle mx-auto">
+                        <% }else{ %> 
+                            <img src="/images/femaleNoProfile.jpg" class="profileImg rounded-circle mx-auto">
+                        <% } %> 
                         <div class="d-flex justify-content-center">
                             <i class="onlineIcon fa fa-circle"></i>
                             <p class="mx-1 h4"> <%= user.username %></p>
