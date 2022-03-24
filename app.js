@@ -19,6 +19,7 @@ const ejsMate = require("ejs-mate");
 // get routes
 const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
+const commentRoutes = require("./routes/comments");
 
 // to use mongodb
 const mongoose = require("mongoose");
@@ -84,6 +85,8 @@ app.use((req, res, next) => {
 
 app.use("/", userRoutes);
 app.use("/", postRoutes);
+app.use('/post/:postId/comments/', commentRoutes);
+
 
 app.get("/", (req, res) => {
     res.render("home");

@@ -1,6 +1,5 @@
 const Post = require('../models/post');
 const User = require('../models/user');
-const Comment = require('../models/comment');
 
 module.exports.renderMain = async (req, res) => {
     const posts = await Post.find({}).populate('author');
@@ -9,25 +8,22 @@ module.exports.renderMain = async (req, res) => {
 };
 
 module.exports.showPost = async (req, res) => {
-    const post = await Post.findById(req.params.id).populate({
+    const post = await Post.findById(req.params.postId).populate({
         path: 'comments',
         populate: {
             path: 'author'
         }
     }).populate('author');
+    
     if (!post) {
         req.flash('error', "can't find that post");
         return res.redirect('/main');
     }
-    res.render('posts/show', { post });
+    res.render('posts/post', { post });
 };
 
-module.exports.addComment = async (req, res) => {
-    const post = await Post.findById(req.params.id);
-    const comment = new Comment({author:req.user._id, body:req.body.comment});
-    post.comments.push(comment);
-    await comment.save();
-    await post.save();
-    req.flash('success', 'Successfuly add new comment');
-    res.redirect(`/show/${req.params.id}`);
+module.exports.deletePost = async (req, res) => {
+    await Post.findByIdAndDelete(req.params.postId);
+    req.flash('success', 'Succesfully deleted the post');
+    res.redirect('/main');
 };

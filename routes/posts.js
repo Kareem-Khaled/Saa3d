@@ -4,11 +4,12 @@ const router = express.Router();
 const { isLoggedIn } = require('../middleware');
 const posts = require('../controllers/posts');
 
+//isLoggedIn
 router.route('/main')
-        .get(isLoggedIn, posts.renderMain);
+        .get(posts.renderMain);
 
-router.route('/show/:id')
-      .get(isLoggedIn, posts.showPost)
-      .post(isLoggedIn, posts.addComment)
+router.route('/post/:postId')
+      .get(posts.showPost)
+      .delete(posts.deletePost);
 
 module.exports = router;

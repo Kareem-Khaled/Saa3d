@@ -1,35 +1,55 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<link rel="stylesheet" href="/stylesheets/navbar.css" />
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand h6 my-auto" href="/main">
-      <img src="../images/logo.png" style="width: 8rem; height: 3rem;" />
+    <a class="navbar-brand h6" href="/main">
+      <img class = "navlogo" src="../images/logo.png"/>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="navbar-nav">
-        <a class="nav-link d-block d-md-none h6" href="/standing">Standing</a>
-      </div>
+     <div class="container">
+       <%- include('../partials/flash') %>
+     </div>
       <div class="navbar-nav ms-auto">
         <% if(!currentUser){ %>
-          <a class="nav-link" href="/login">login</a>
-          <a class="nav-link" href="/register">register</a>
+          <a class="nav-link h6" href="/login">login</a>
+          <a class="nav-link h6" href="/register">register</a>
           <% }else{ %>
-            <a class="nav-link h6" href="/profile">
-              <div class="rounded-circle d-flex">
-                <% if(user.gender == 'male'){ %> 
-                  <img src="/images/maleNoProfile.jpg" class="rounded-circle mx-2" style="width: 2rem; height: 2rem;">
-                  <% }else{ %> 
-                    <img src="/images/femaleNoProfile.jpg" class="rounded-circle mx-2" style="width: 2rem; height: 2rem;">
-                    <% } %> 
-                <p class="fs-5 my-auto"> <%= currentUser.username %></p>
-              </div>
-            </a>
             <div class="d-flex">
-             <a class="nav-link h6 mt-2" href="/logout">Log out</a>
-          </div>
+            <a class="nav-link h6" href="/profile/<%= currentUser._id %> ">
+              <div class="rounded-circle">
+                <% if(currentUser.gender == 'male'){ %> 
+                  <img src="/images/maleNoProfile.jpg" class="rounded-circle navpic">
+                  <% }else{ %> 
+                    <img src="/images/femaleNoProfile.jpg" class="rounded-circle navpic">
+                    <% } %> 
+                  </div>
+                  <p class="h6 navp"><%= currentUser.username %> </p>
+                </a>
 
+                <div class="dropdown nav-link m-auto navnotfi">
+                  <i class="fa fa-bell fa-lg" data-bs-toggle="dropdown"></i>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">alert</a></li>
+                </ul>
+              </div>
+              
+              <div class="m-auto">
+              <a class = "nav-link" href="#"><i class="fa fa-sliders fa-lg"></i></a>
+            </div>
+
+            <div class="m-auto">
+              <a class = "nav-link d-block d-md-none" href="/standing"><i class="fa fa-users fa-lg"></i></a>
+            </div>
+
+              <div class="m-auto">
+                <a class = "nav-link" href="/logout"><i class="fa fa-sign-out fa-lg"></i></a>
+              </div>
+
+              
+          </div>
             <% } %>
       </div>
     </div>

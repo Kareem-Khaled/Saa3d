@@ -4,7 +4,7 @@ body {
 .cover-container {
     max-width: 80vw;
   }
-
+/*
   body::-webkit-scrollbar {
     width: 1em;
   }
@@ -16,7 +16,7 @@ body {
   body::-webkit-scrollbar-thumb {
     background-color: rgb(135, 93, 252);
    }
-   
+   */
    .locationIcon{
       color: green;
    }

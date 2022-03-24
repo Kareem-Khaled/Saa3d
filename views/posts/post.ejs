@@ -22,16 +22,24 @@
            
             <div class="card-header d-flex justify-content-between border-bottom">
               <p class="text-danger h5">@user: <%= post.author.username %> </p>
+              <% if(post.author.username == currentUser.username){ %> 
               <div class="dropdown">
                 <i class="fa fa-ellipsis-h fa-2x" data-bs-toggle="dropdown"></i>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item border-bottom" href="#">Edit</a></li>
-                <li><a class="dropdown-item" href="#">Delete</a></li>
+                <li class="dropdown-item">
+                  <form action="#" method="post">
+                    <button class="btn" type="submit">Edit</button>
+                  </form>
+              </li>
+                <li class="dropdown-item">
+                  <form action="/post/<%= post._id %>?_method=delete" method="post">
+                    <button class="btn" type="submit">Delete</button>
+                  </form>
+              </li>
               </ul>
             </div>
+            <% } %> 
             </div>
-
-           
             
             <div class="card-body">
               <h5 class="card-title d-flex border-bottom display-6"><%= post.header %></h5>
@@ -50,8 +58,8 @@
               </div>              
           </div>
 
-            <form class="card-footer d-flex" method="POST" action="/show/<%= post._id %>">
-              <input type="text" class="form-control" name="comment" placeholder="Write a comment...." required>
+            <form class="card-footer d-flex" method="POST" action="/post/<%= post._id %>/comments">
+              <textarea class="form-control" name="comment" placeholder="Write a comment...." cols="1" rows="1" required></textarea>
               <button class="mx-1 btn btn-success btn-sm" type="submit">Comment</button>
             </form>
 
@@ -59,13 +67,23 @@
               <div class="card-footer">
                <div class="d-flex justify-content-between">
                 <p class="text-danger h6 border-bottom">@user: <%= comment.author.username %> </p>
-                <div class="dropdown">
+                <% if(comment.author.username == currentUser.username){ %> 
+                  <div class="dropdown">
                   <i class="fa fa-ellipsis-h fa-lg" data-bs-toggle="dropdown"></i>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item border-bottom" href="#">Edit</a></li>
-                  <li><a class="dropdown-item" href="#">Delete</a></li>
+                  <li class="dropdown-item">
+                    <form action="#" method="post">
+                      <button class="btn" type="submit">Edit</button>
+                    </form>
+                </li>
+                  <li class="dropdown-item">
+                    <form action="/post/<%= post._id %>/comments/<%= comment._id %>?_method=delete" method="post">
+                      <button class="btn" type="submit">Delete</button>
+                    </form>
+                </li>
                 </ul>
               </div>
+              <% } %> 
               </div>
               <p class="h6"><%= comment.body %></p>
               </div>

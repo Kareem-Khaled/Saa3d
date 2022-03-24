@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <div class=" d-flex w-100 h-100 mx-auto flex-column position-relative">
-        <div class="row mt-5">
+    <div class="d-flex mx-auto flex-column ">
+        <div class="row mt-5 text-center">
             <%- include('../partials/navbar') %>
           </div>
 
@@ -39,23 +39,23 @@
 
      
         <div class="card mb-3">
-            <div class="card-body d-flex container">
-                <div>
+            <div class="row card-body">
+                <div class="col-6 col-md-3">
                     <i class="fa fa-home fa-lg"></i>
                     <p class="h5"><%= user.city %></p>
                 </div>
-                <div class="mx-auto">
+                <div class="col-6 col-md-3">
                     <% for(let i = 0; i < 5; i++){ %> 
                         <i class="starIcon fa fa-star fa-lg"></i>
                     <% } %> 
                     <p class="h5">Rate: 5</p>
                 </div>
-                <div class="mx-auto">
-                    <i class="fa fa-cogs fa-lg mx-auto"></i>
+                <div class="col-6 col-md-3">
+                    <i class="fa fa-cogs fa-lg "></i>
                     <p class="h5">Services: <%= user.service %></p>
                 </div>
-                <div class="mx-auto">
-                    <i class="fa fa-calendar fa-lg mx-auto"></i>
+                <div class="col-6 col-md-3">
+                    <i class="fa fa-calendar fa-lg "></i>
                     <% 
                         let today = user.joinedAt;
                         let year = today.getFullYear();

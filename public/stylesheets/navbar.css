@@ -1,0 +1,17 @@
+.navlogo{
+    width: 8rem; 
+    height: 3rem; 
+}
+
+.navpic{
+     width: 2rem; 
+     height: 2rem;
+}
+
+.navnotfi{
+    cursor: pointer;
+}
+
+.navp{
+    display: inline;
+}
