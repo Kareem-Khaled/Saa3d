@@ -15,3 +15,7 @@
 .navp{
     display: inline;
 }
+
+.nav-hov:hover{
+    color: white;
+}

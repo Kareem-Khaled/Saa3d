@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="../images/logo-sm.png">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dokcpejo1/image/upload/v1648513749/Saa3d/logo-sm.png">
     <link rel="stylesheet" href="/stylesheets/profile.css" />
     <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css" />
     <title><%= user.username %> - profile</title>
@@ -22,11 +22,7 @@
                 <div class="card mb-3">
                 <div class="card-body d-flex justify-content-center">
                     <div class="row">
-                        <% if(user.gender == 'male'){ %> 
-                           <img src="/images/maleNoProfile.jpg" class="profileImg rounded-circle mx-auto">
-                        <% }else{ %> 
-                            <img src="/images/femaleNoProfile.jpg" class="profileImg rounded-circle mx-auto">
-                        <% } %> 
+                        <img src="<%= user.image.url %> " class="profileImg rounded-circle mx-auto">
                         <div class="d-flex justify-content-center">
                             <i class="onlineIcon fa fa-circle"></i>
                             <p class="mx-1 h4"> <%= user.username %></p>

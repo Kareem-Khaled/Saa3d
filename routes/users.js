@@ -9,6 +9,11 @@ const users = require('../controllers/users');
 const { isLoggedIn } = require('../middleware');
 
 
+// to allow uploading files (images)
+const multer = require('multer');
+const { storage } = require('../cloudinary');
+const upload = multer({ storage });
+
 router.route('/register')
     .get(users.renderRegister)
     .post(catchAsync(users.register));
@@ -19,7 +24,10 @@ router.route('/login')
 
 router.get('/profile/:userId', isLoggedIn, users.renderProfile);
 
+router.route('/profile/:userId/settings')
+      .get(users.renderSettings)
+      .post(upload.array('image'), users.updateSettings);
+      
 router.get('/logout', users.logout);
-
 
 module.exports = router;

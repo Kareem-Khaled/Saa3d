@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand h6" href="/main">
-      <img class = "navlogo" src="../images/logo.png"/>
+      <img class = "navlogo" src="https://res.cloudinary.com/dokcpejo1/image/upload/v1648513749/Saa3d/logo.png"/>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,34 +20,29 @@
             <div class="d-flex">
             <a class="nav-link h6" href="/profile/<%= currentUser._id %> ">
               <div class="rounded-circle">
-                <% if(currentUser.gender == 'male'){ %> 
-                  <img src="/images/maleNoProfile.jpg" class="rounded-circle navpic">
-                  <% }else{ %> 
-                    <img src="/images/femaleNoProfile.jpg" class="rounded-circle navpic">
-                    <% } %> 
+                  <img src="<%= currentUser.image.url %>" class="rounded-circle navpic">
                   </div>
-                  <p class="h6 navp"><%= currentUser.username %> </p>
+                  <p class="h6 navp nav-hov"><%= currentUser.username %> </p>
                 </a>
 
                 <div class="dropdown nav-link m-auto navnotfi">
-                  <i class="fa fa-bell fa-lg" data-bs-toggle="dropdown"></i>
+                  <i class="fa fa-bell fa-lg nav-hov" data-bs-toggle="dropdown"></i>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="#">alert</a></li>
                 </ul>
               </div>
               
               <div class="m-auto">
-              <a class = "nav-link" href="#"><i class="fa fa-sliders fa-lg"></i></a>
+              <a class = "nav-link" href="/profile/<%= currentUser._id %>/settings "><i class="fa fa-sliders fa-lg nav-hov"></i></a>
             </div>
 
             <div class="m-auto">
-              <a class = "nav-link d-block d-md-none" href="/standing"><i class="fa fa-users fa-lg"></i></a>
+              <a class = "nav-link d-block d-md-none" href="/standing"><i class="fa fa-users fa-lg nav-hov"></i></a>
             </div>
 
               <div class="m-auto">
-                <a class = "nav-link" href="/logout"><i class="fa fa-sign-out fa-lg"></i></a>
+                <a class = "nav-link" href="/logout"><i class="fa fa-sign-out fa-lg nav-hov"></i></a>
               </div>
-
               
           </div>
             <% } %>
