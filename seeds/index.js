@@ -13,8 +13,8 @@ mongoose
         console.log(err);
     });
 
-let users = ['Kareem', 'Talat', 'Shenawi', 'Mokn3', 'Shymaa',
-             'Wafaa','Nancy', 'Rere'];
+let users = ['Kareem', 'Talat', 'Shenawi', 'Mokn3', 'Fatma',
+             'Olivia','Nancy', 'Sofiya'];
 
 const addUsers = async() =>{
     await User.deleteMany({});
@@ -45,9 +45,10 @@ const addPosts = async () => {
         let points = Math.floor(Math.random() * 100);
         let user = users[id];
         const post = new Post({
-            author: '62425aa1e8037a4c49f57bea',
+            author: '62449f1a8a56756973288b94',
             header:'This is a good header',
             body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quos, cupiditate quod doloremque facere iure, perspiciatis a aspernatur, recusandae laboriosam quis quaerat sit qui vero ut expedita tempore atque asperiores. Some quick example text to build on the card title and make up the bulk of the card's content." ,
+            city:'Assiut',
             point: points,
             createdAt: Date.now(),
             comments:[],

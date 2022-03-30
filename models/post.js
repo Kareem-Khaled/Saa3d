@@ -9,7 +9,8 @@ const postSchema = new Schema({
     },
     header: String,
     body: String,
-    point: Number,
+    point: String,
+    city: String,
     createdAt: Date,
     comments: [
         {
