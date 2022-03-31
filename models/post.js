@@ -12,6 +12,7 @@ const postSchema = new Schema({
     point: String,
     city: String,
     createdAt: Date,
+    updatedAt: Date,
     comments: [
         {
             type: Schema.Types.ObjectId,

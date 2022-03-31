@@ -2,6 +2,10 @@ body {
     background-color: #eee;
 }
 
+.cover-container {
+  max-width: 95vw;
+}
+
 .profileImg{
     width: 9rem;
     height: 8rem;

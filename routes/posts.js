@@ -14,7 +14,7 @@ router.route('/post/new')
       
 router.route('/post/:postId')
       .get(posts.showPost)
-      .delete(posts.deletePost);
-
+      .delete(posts.deletePost)
+      .put(posts.updatePost);
 
 module.exports = router;

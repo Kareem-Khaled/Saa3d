@@ -1,11 +1,13 @@
 // to access user db from models folder
 const User = require('../models/user');
+const Country = require('../models/country');
 const { cloudinary } = require('../cloudinary');
 const { Image } = require('../models/user');
 
 // rendering registering & login form 
-module.exports.renderRegister = (req, res) => {
-    res.render('users/login&signup', {path: req.path});
+module.exports.renderRegister = async (req, res) => {
+    const cities = await Country.find({name : 'Egypt'});
+    res.render('users/login&signup', {path: req.path, cities: cities[0].cities});
 };
 
 module.exports.renderProfile = async (req, res) => {

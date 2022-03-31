@@ -8,7 +8,6 @@
     <title>Saa3d - log in or sign up</title>
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/dokcpejo1/image/upload/v1648513749/Saa3d/logo-sm.png">
     <link rel="stylesheet" href="/stylesheets/login&signup.css" />
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="/stylesheets/font-awesome/css/font-awesome.min.css" />
 </head>
 
@@ -87,6 +86,9 @@
 <div class="row">
   <span class="col-xs-1 col-md-4">
     <select class="form-control" name="city">
+      <% for(let city of cities){ %>
+        <option value="<%= city %>"><%= city %> </option>
+     <% } %> 
     </select>
   </span>
 </div>

@@ -51,6 +51,7 @@ const addPosts = async () => {
             city:'Assiut',
             point: points,
             createdAt: Date.now(),
+            updatedAt: null,
             comments:[],
         })
         await post.save();

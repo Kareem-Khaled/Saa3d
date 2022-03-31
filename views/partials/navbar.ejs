@@ -14,8 +14,8 @@
      </div>
       <div class="navbar-nav ms-auto">
         <% if(!currentUser){ %>
-          <a class="nav-link h6" href="/login">login</a>
-          <a class="nav-link h6" href="/register">register</a>
+          <a class="nav-link h6" href="/login">Login</a>
+          <a class="nav-link h6" href="/register">Register</a>
           <% }else{ %>
             <div class="d-flex">
             <a class="nav-link h6" href="/profile/<%= currentUser._id %> ">

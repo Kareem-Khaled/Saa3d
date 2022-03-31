@@ -46,26 +46,3 @@ function formDisplay(f1, f2){
 
 logIn.btn.addEventListener('click', () => { formDisplay(logIn, signUp) });
 signUp.btn.addEventListener('click', () => { formDisplay(signUp, logIn) });
-
-
-let city = document.getElementsByName('city')[0];
-
-async function getCountries() {
-  const res = await axios.get('http://api.geonames.org/searchJSON?q=egypt&username=egyptian');
-  return res.data;
-}
-
-(async function addCities(){
-  let cities = new Set();
-  const countries = await getCountries(); 
-  for(countrie of countries.geonames){
-    if(countrie.fclName.includes('city') && countrie.countryCode == 'EG')
-      cities.add(countrie.adminName1);
-  }
-  for (c of cities){
-    let opt = document.createElement('option');
-    opt.value = c;
-    opt.innerHTML = c;
-    city.appendChild(opt);
-  }
-})();
