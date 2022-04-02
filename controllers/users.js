@@ -56,17 +56,37 @@ module.exports.register = async (req, res) => {
 };
 
 
-module.exports.updateSettings = async (req, res) => {
+module.exports.updateSettings = async (req, res, next) => {
     const user = await User.findById(req.params.userId);
     const images = req.files.map(f => ({ url: f.path, filename: f.filename }));
-    if(user.image.filename != 'maleNoProfile' && user.image.filename != 'femaleNoProfile'){
+    if(images[0] && user.image.filename != 'maleNoProfile' && user.image.filename != 'femaleNoProfile'){
         await cloudinary.uploader.destroy(user.image.filename);
     }
-    user.image = images[0];
-    await user.save();
-    req.flash('success', 'Succesfuly updated your info');
-    res.redirect(`/profile/${req.params.userId}`);
-};
+    if(images[0]){
+        user.image = images[0];
+        await user.save();
+    }
+    const {oldPassword, newPassword, confirmNewPassword} = req.body;
+    if(oldPassword != '' && newPassword != '' && confirmNewPassword != ''){
+        if(newPassword != confirmNewPassword){
+            req.flash('error', "The two passwords aren't identical");
+            return res.redirect(`/profile/${req.params.userId}/settings`);
+        }
+        await user.changePassword(oldPassword, newPassword)
+                  .then(e => {
+                    req.flash('success', 'Succesfuly updated your info');
+                    res.redirect(`/profile/${req.params.userId}`);            
+                  })
+                  .catch(e => {
+                    req.flash('error', 'Check the old password');
+                    res.redirect(`/profile/${req.params.userId}/settings`);
+                })
+    }
+    else{
+        req.flash('success', 'Succesfuly updated your info');
+        res.redirect(`/profile/${req.params.userId}`);
+    }
+ };
 
 // login user
 module.exports.login = (req, res) => {
