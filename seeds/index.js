@@ -32,10 +32,12 @@ const addUsers = async() =>{
             image:{
                 url: `https://res.cloudinary.com/dokcpejo1/image/upload/v1648513749/Saa3d/${(i < 4 ? 'maleNoProfile': 'femaleNoProfile')}`,
                 filename: (i < 4 ? 'maleNoProfile' : 'femaleNoProfile')
-            }
+            },
+            notifications : []
         });
-        const registeredUser = await User.register(user, '123');
+        await User.register(user, '123');
     }
+    console.log("- Users added");
 }
 
 const addPosts = async () => {
@@ -45,7 +47,7 @@ const addPosts = async () => {
         let points = Math.floor(Math.random() * 100);
         let user = users[id];
         const post = new Post({
-            author: '62449f1a8a56756973288b94',
+            author: '62623bd69d7e2a16265d4f9d',
             header:'This is a good header',
             body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quos, cupiditate quod doloremque facere iure, perspiciatis a aspernatur, recusandae laboriosam quis quaerat sit qui vero ut expedita tempore atque asperiores. Some quick example text to build on the card title and make up the bulk of the card's content." ,
             city:'Assiut',
@@ -56,9 +58,10 @@ const addPosts = async () => {
         })
         await post.save();
     }
+    console.log("- Posts added");
 }
 
 addPosts().then(() => {
     mongoose.connection.close();
     console.log("Done");
-})
+});

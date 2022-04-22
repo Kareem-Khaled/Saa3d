@@ -6,6 +6,7 @@ const passport = require('passport');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const users = require('../controllers/users');
+const notifications = require('../controllers/notifications');
 const { isLoggedIn } = require('../middleware');
 
 
@@ -27,6 +28,9 @@ router.get('/profile/:userId', isLoggedIn, users.renderProfile);
 router.route('/profile/:userId/settings')
       .get(users.renderSettings)
       .post(upload.array('image'), users.updateSettings);
+
+router.route('/profile/:userId/notifications')
+        .get(notifications.renderNotifications);
       
 router.get('/logout', users.logout);
 

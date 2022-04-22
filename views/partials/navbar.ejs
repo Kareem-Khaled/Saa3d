@@ -18,34 +18,31 @@
           <a class="nav-link h6" href="/register">Register</a>
           <% }else{ %>
             <div class="d-flex">
-            <a class="nav-link h6" href="/profile/<%= currentUser._id %> ">
+            <a class="nav-link h6" href="/profile/<%= currentUser._id %>">
               <div class="rounded-circle">
                   <img src="<%= currentUser.image.url %>" class="rounded-circle navpic">
                   </div>
-                  <p class="h6 navp nav-hov"><%= currentUser.username %> </p>
+                  <p class="h6 navp"><%= currentUser.username %> </p>
                 </a>
 
                 <div class="m-auto">
-                  <a class = "nav-link" href="/post/new"><i class="fa fa-plus-circle fa-lg nav-hov"></i></a>
+                  <a class = "nav-link" href="/post/new"><i class="fa fa-plus-circle fa-lg"></i></a>
                 </div>
 
-                <div class="dropdown nav-link m-auto navnotfi">
-                  <i class="fa fa-bell fa-lg nav-hov" data-bs-toggle="dropdown"></i>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">alert</a></li>
-                </ul>
+                <div class="m-auto">
+                  <a class = "nav-link" href="/profile/<%= currentUser._id %>/notifications"><i class="fa fa-bell fa-lg"></i></a>
               </div>
               
               <div class="m-auto">
-              <a class = "nav-link" href="/profile/<%= currentUser._id %>/settings "><i class="fa fa-sliders fa-lg nav-hov"></i></a>
+              <a class = "nav-link" href="/profile/<%= currentUser._id %>/settings "><i class="fa fa-sliders fa-lg"></i></a>
             </div>
 
             <div class="m-auto">
-              <a class = "nav-link d-block d-md-none" href="/standing"><i class="fa fa-users fa-lg nav-hov"></i></a>
+              <a class = "nav-link d-block d-md-none" href="/standing"><i class="fa fa-users fa-lg"></i></a>
             </div>
 
               <div class="m-auto">
-                <a class = "nav-link" href="/logout"><i class="fa fa-sign-out fa-lg nav-hov"></i></a>
+                <a class = "nav-link" href="/logout"><i class="fa fa-sign-out fa-lg"></i></a>
               </div>
               
           </div>

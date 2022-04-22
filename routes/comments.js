@@ -6,9 +6,13 @@ const router = express.Router({mergeParams: true});
 const { isLoggedIn } = require('../middleware');
 
 const comments = require('../controllers/comments');
+const requests = require('../controllers/requests');
+const notifications = require('../controllers/notifications');
 
-router.route('/').post(comments.addComment);
+router.route('/').post(notifications.addNotification, comments.addComment);
 
-router.route('/:commentId').delete(comments.deleteComment);
+router.route('/:commentId')
+        .post(requests.acceptOffer)
+        .delete(comments.deleteComment);
 
 module.exports = router;

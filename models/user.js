@@ -1,13 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const ImageSchema = require('./image').schema;
 // using passport bcs it's easy to encrypt users passwords and login them in ...
 const passportLocalMongoose = require('passport-local-mongoose');
-
-const ImageSchema = new Schema({
-    url: String,
-    filename: String
-});
 
 const userSchema = new Schema({
     email: {
@@ -20,7 +15,13 @@ const userSchema = new Schema({
     point: Number,
     service: Number,
     joinedAt: Date,
-    image: ImageSchema
+    image: ImageSchema,
+    notifications: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Notification"
+        }
+    ]
 });
 
 // adding username & password & make sure that username is unique & more functions

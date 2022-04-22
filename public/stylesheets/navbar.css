@@ -8,14 +8,6 @@
      height: 2rem;
 }
 
-.navnotfi{
-    cursor: pointer;
-}
-
 .navp{
     display: inline;
-}
-
-.nav-hov:hover{
-    color: white;
 }

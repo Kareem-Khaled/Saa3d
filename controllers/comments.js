@@ -14,7 +14,7 @@ module.exports.addComment = async (req, res) => {
     res.redirect(`/post/${req.params.postId}`);
 };
 
-module.exports.deleteComment= async (req, res) => {
+module.exports.deleteComment = async (req, res) => {
     const post = await Post.findByIdAndUpdate(req.params.postId, { $pull: { comments: req.params.commentId } });
     const comment = await Comment.findByIdAndDelete(req.params.commentId);
     req.flash('success', 'Successfuly removed the comment');

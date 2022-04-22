@@ -40,12 +40,14 @@
                     <p class="h5"><%= post.city %></p>
                 </div>              
             </div>
-  
-              <form class="card-footer d-flex" method="POST" action="/post/<%= post._id %>/comments">
-                <textarea class="form-control" name="comment" placeholder="Write a comment...." cols="1" rows="1" required></textarea>
-                <button class="mx-1 btn btn-success btn-sm" type="submit">Comment</button>
+            <% if(post.author.username != currentUser.username){ %> 
+              <form class="card-footer" method="POST" action="/post/<%= post._id %>/comments">
+                  <textarea class="form-control" name="comment" placeholder="Write a comment...." cols="1" rows="1" required></textarea>
+                <div class="d-flex flex-row-reverse">
+                  <button class="my-1 btn btn-success btn-sm" type="submit">Comment</button>
+                </div>
               </form>
-  
+            <% } %> 
             </div>
            
             <div class="editPost d-none">
@@ -103,7 +105,14 @@
               </div>
               <% } %> 
               </div>
-              <p class="h6"><%= comment.body %></p>
+               <p class="h6"><%= comment.body %></p>
+               <% if(post.author.username == currentUser.username){ %> 
+                <div class="d-flex flex-row-reverse">
+                  <form action="/post/<%= post._id %>/comments/<%= comment._id%>" method="post">
+                  <button class="btn"> <i class="approveBtn fa fa-check-square-o fa-lg" ></i></button>
+                  </form>
+                </div>
+                <% } %> 
               </div>
             <% } %> 
  

@@ -20,6 +20,7 @@ module.exports.renderSettings = async (req, res) => {
     res.render('users/settings', {user});
 };
 
+
 // registering new user and logging him in and redirect him to all users page
 module.exports.register = async (req, res) => {
     try {
@@ -36,7 +37,8 @@ module.exports.register = async (req, res) => {
             point: 0,
             service: 0,
             joinedAt: Date.now(),
-            image: img
+            image: img,
+            notifications: []
         });
         if(rpassword != confirmPassword){
             throw new Error("The two passwords aren't identical");   

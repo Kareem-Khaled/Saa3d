@@ -29,12 +29,12 @@ p{
   display: inline;
 }
 
-.likeIcon{
-  color: black;
-}
-.likeIcon:hover{
+.viewIcon:hover, .approveBtn:hover{
   color: green;
 }
 .dropdown{
   cursor: pointer;
+}
+.approveBtn, .viewIcon{
+  color: gray
 }
