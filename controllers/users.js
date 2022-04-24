@@ -11,7 +11,12 @@ module.exports.renderRegister = async (req, res) => {
 };
 
 module.exports.renderProfile = async (req, res) => {
-    const user = await User.findById(req.params.userId);
+    const user = await User.findById(req.params.userId).populate({
+        path: 'services',
+        populate: {
+            path: 'to'
+        }
+    });
     res.render('users/profile', {user});
 };
 
@@ -38,7 +43,8 @@ module.exports.register = async (req, res) => {
             service: 0,
             joinedAt: Date.now(),
             image: img,
-            notifications: []
+            notifications: [],
+            services: []
         });
         if(rpassword != confirmPassword){
             throw new Error("The two passwords aren't identical");   
@@ -56,7 +62,6 @@ module.exports.register = async (req, res) => {
         res.redirect('/register');
     }
 };
-
 
 module.exports.updateSettings = async (req, res, next) => {
     const user = await User.findById(req.params.userId);

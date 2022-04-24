@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+require('../models/service');
+require('../models/notification');
 const ImageSchema = require('./image').schema;
 // using passport bcs it's easy to encrypt users passwords and login them in ...
 const passportLocalMongoose = require('passport-local-mongoose');
@@ -13,7 +15,12 @@ const userSchema = new Schema({
     city: String,
     gender: String,
     point: Number,
-    service: Number,
+    services: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Service"
+        }
+    ],
     joinedAt: Date,
     image: ImageSchema,
     notifications: [

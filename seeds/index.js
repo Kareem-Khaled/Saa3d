@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const Post = require('../models/post');
 const User = require('../models/user');
+const Service = require('../models/service');
 
 mongoose
     .connect("mongodb://127.0.0.1:27017/saa3d")
@@ -16,24 +17,23 @@ mongoose
 let users = ['Kareem', 'Talat', 'Shenawi', 'Mokn3', 'Fatma',
              'Olivia','Nancy', 'Sofiya'];
 
+let kemo;
 const addUsers = async() =>{
     await User.deleteMany({});
     for (let i = 0; i < users.length; i++) {
         let points = Math.floor(Math.random() * 100);
-        let services = Math.floor(Math.random() * 20);
         const user = new User({ 
             email:users[i]+'@gmail.com',
             username:users[i],
             city:'Assiut',
             gender: (i < 4 ? 'male' : 'female'),
             point:points,
-            service:services,
             joinedAt: Date.now(),
             image:{
                 url: `https://res.cloudinary.com/dokcpejo1/image/upload/v1648513749/Saa3d/${(i < 4 ? 'maleNoProfile': 'femaleNoProfile')}`,
                 filename: (i < 4 ? 'maleNoProfile' : 'femaleNoProfile')
             },
-            notifications : []
+            notifications : [],
         });
         await User.register(user, '123');
     }
@@ -47,7 +47,7 @@ const addPosts = async () => {
         let points = Math.floor(Math.random() * 100);
         let user = users[id];
         const post = new Post({
-            author: '62623bd69d7e2a16265d4f9d',
+            author: mongoose.Types.ObjectId(kemo._id),
             header:'This is a good header',
             body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quos, cupiditate quod doloremque facere iure, perspiciatis a aspernatur, recusandae laboriosam quis quaerat sit qui vero ut expedita tempore atque asperiores. Some quick example text to build on the card title and make up the bulk of the card's content." ,
             city:'Assiut',
@@ -61,7 +61,34 @@ const addPosts = async () => {
     console.log("- Posts added");
 }
 
-addPosts().then(() => {
-    mongoose.connection.close();
-    console.log("Done");
+const addServives = async () => {
+    await Service.deleteMany({});
+    kemo = await User.find({username:'Kareem'});
+    kemo = kemo[0];
+    const serv1 = new Service({
+        to:mongoose.Types.ObjectId(kemo._id),
+        header:'This is a good header',
+        review:'He is a great person who helped me very well!',
+        state:1
+    })
+    const serv2 = new Service({
+        to:mongoose.Types.ObjectId(kemo._id),
+        header:'This is a good header again',
+        review:'Job still in progress',
+        state:0
+    })
+    kemo.services.push(serv1);
+    kemo.services.push(serv2);
+    await serv1.save();
+    await serv2.save();
+    await kemo.save();
+}
+
+addUsers().then(() => {
+    addServives().then(() => {
+        addPosts().then(() => {
+            mongoose.connection.close(); 
+            console.log("Done");
+        });
+    });
 });

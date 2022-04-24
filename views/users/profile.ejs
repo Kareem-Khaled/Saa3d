@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="/stylesheets/profile.css" />
 <% layout('layouts/boilerplate') %>
-
         <div class="row mt-5">
             <div class="col-12">
                 <div class="card mb-3">
@@ -31,7 +30,7 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <i class="fa fa-cogs fa-lg "></i>
-                    <p class="h5">Services: <%= user.service %></p>
+                    <p class="h5">Services: <%= user.services.length %></p>
                 </div>
                 <div class="col-6 col-md-3">
                     <i class="fa fa-calendar fa-lg "></i>
@@ -46,3 +45,44 @@
                 </div>                 
             </div>
         </div>
+        
+        <% for(let service of user.services){ %> 
+            <% if(service.state){ %> 
+                <div class="card text-white bg-success mb-3 offset-1 col-10">
+                    <div class="card-header d-flex justify-content-between">
+                        <span class="card-title h5 text-warning ">@<%= service.to.username%></span>
+                        <span class="card-title display-6"><%= service.header %></span>
+                        <div>
+                        <% for(let i = 0; i < 5; i++){ %> 
+                            <i class="starIcon fa fa-star fa-sm"></i>
+                        <% } %> 
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text h5"><%= service.review %></p>
+                    </div>
+                </div>
+                <% }else{ %> 
+                    <div class="card text-dark bg-light mb-3 offset-1 col-10">
+                        <div class="card-header d-flex justify-content-between">
+                            <span class="card-title h5 text-danger">@<%= service.to.username%></span>
+                            <span class="card-title display-6"><%= service.header %></span>
+                           <% if(currentUser.username == user.username){ %>
+                                <form action="#" method="post">
+                                    <button class="btn"> <i class="doneIcon fa fa-check-square-o fa-2x" ></i></button>
+                                </form>
+                            <% }else{ %>
+                                <div>
+                                <% for(let i = 0; i < 5; i++){ %> 
+                                    <i class="starIcon fa fa-star-o text-dark fa-sm"></i>
+                                <% } %> 
+                            </div>
+                            <% } %>  
+                        </div>
+                            <div class="card-body">
+                                <span class="card-text h5"><%= service.review %></span>
+                                <span class="spinner-grow spinner-grow-sm"></span>
+                            </div>
+                    </div>
+                <% } %>
+        <% } %> 
