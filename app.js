@@ -20,6 +20,7 @@ const ejsMate = require("ejs-mate");
 const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 const commentRoutes = require("./routes/comments");
+const requestRoutes = require("./routes/requests");
 
 // to use mongodb
 const mongoose = require("mongoose");
@@ -85,6 +86,7 @@ app.use((req, res, next) => {
 
 app.use("/", userRoutes);
 app.use("/", postRoutes);
+app.use("/request/", requestRoutes);
 app.use('/post/:postId/comments/', commentRoutes);
 
 
@@ -93,7 +95,7 @@ app.get("/", (req, res) => {
 });
 
 app.all("*", (req, res, next) => {
-    res.send("erorrrrrr");
+    res.render("error");
 });
 
 app.use((err, req, res, next) => {

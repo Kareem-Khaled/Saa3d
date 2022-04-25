@@ -20,14 +20,39 @@ module.exports.acceptOffer = async (req, res) => {
     await notification.save();
     // create service
     service = new Service({
-        to:post.author,
-        header:post.header,
+        customer:post.author,
+        freelancer:comment.author,
+        job:post._id,
         review:'Job still in progress',
-        state: 0
+        rate: 0
     });
     commentAuthor.services.push(service);
     await service.save();
     await commentAuthor.save();
-    req.flash('success', `Your jop in procces now`);
+    req.flash('success', `Your job in procces now`);
     res.redirect(`/post/${postId}`);            
+};
+
+module.exports.jobFinished = async (req, res) => {
+    const {serviceId} = req.params;
+    service = await Service.findById(serviceId);
+    post = await Post.findById(service.job._id);
+    const notification = new Notification({
+        user: service.freelancer._id,
+        date: Date.now(),
+        body: `Your '${post.header}' job has been finished, it's your turn to give me a feedback`,
+        link: `/profile/${service.freelancer._id}`
+    });
+    const customer = await User.findById(service.customer._id);
+    customer.notifications.push(notification);
+    await notification.save();
+    await customer.save();
+    res.redirect(`/main`);          
+};
+
+module.exports.postReview = async (req, res) => {
+    const {serviceId} = req.params;
+    service = await Service.findById(serviceId);
+    console.log(service);
+    res.redirect(`/main`);            
 };

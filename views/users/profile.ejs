@@ -47,14 +47,14 @@
         </div>
         
         <% for(let service of user.services){ %> 
-            <% if(service.state){ %> 
+            <% if(service.rate){ %> 
                 <div class="card text-white bg-success mb-3 offset-1 col-10">
                     <div class="card-header d-flex justify-content-between">
-                        <span class="card-title h5 text-warning ">@<%= service.to.username%></span>
-                        <span class="card-title display-6"><%= service.header %></span>
+                        <span class="card-title h5 text-warning ">@<%= service.customer.username%></span>
+                        <span class="card-title display-6"><%= service.job.header %></span>
                         <div>
                         <% for(let i = 0; i < 5; i++){ %> 
-                            <i class="starIcon fa fa-star fa-sm"></i>
+                            <i class="starIcon fa fa-star<%- (i + 1 <= service.rate)? '':'-o' %> fa-sm"></i>
                         <% } %> 
                         </div>
                     </div>
@@ -65,10 +65,10 @@
                 <% }else{ %> 
                     <div class="card text-dark bg-light mb-3 offset-1 col-10">
                         <div class="card-header d-flex justify-content-between">
-                            <span class="card-title h5 text-danger">@<%= service.to.username%></span>
-                            <span class="card-title display-6"><%= service.header %></span>
+                            <span class="card-title h5 text-danger">@<%= service.customer.username%></span>
+                            <span class="card-title display-6"><%= service.job.header %></span>
                            <% if(currentUser.username == user.username){ %>
-                                <form action="#" method="post">
+                                <form action="/request/<%= service._id %>" method="get">
                                     <button class="btn"> <i class="doneIcon fa fa-check-square-o fa-2x" ></i></button>
                                 </form>
                             <% }else{ %>

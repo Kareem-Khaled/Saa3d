@@ -14,9 +14,15 @@ module.exports.renderProfile = async (req, res) => {
     const user = await User.findById(req.params.userId).populate({
         path: 'services',
         populate: {
-            path: 'to'
+            path: 'customer'
+        }
+    }).populate({
+        path: 'services',
+        populate: {
+            path: 'job'
         }
     });
+    
     res.render('users/profile', {user});
 };
 

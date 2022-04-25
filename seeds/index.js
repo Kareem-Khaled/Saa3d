@@ -42,13 +42,15 @@ const addUsers = async() =>{
 
 const addPosts = async () => {
     await Post.deleteMany({});
+    kemo = await User.find({username:'Kareem'});
+    kemo = kemo[0];
     for (let i = 0; i < 30; i++) {
         let id = Math.floor(Math.random() * users.length);
         let points = Math.floor(Math.random() * 100);
         let user = users[id];
         const post = new Post({
             author: mongoose.Types.ObjectId(kemo._id),
-            header:'This is a good header',
+            header:`This is a good header - ${i}`,
             body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quos, cupiditate quod doloremque facere iure, perspiciatis a aspernatur, recusandae laboriosam quis quaerat sit qui vero ut expedita tempore atque asperiores. Some quick example text to build on the card title and make up the bulk of the card's content." ,
             city:'Assiut',
             point: points,
@@ -63,30 +65,33 @@ const addPosts = async () => {
 
 const addServives = async () => {
     await Service.deleteMany({});
-    kemo = await User.find({username:'Kareem'});
-    kemo = kemo[0];
+    let talat = await User.find({username:'Talat'});
+    let post = await Post.find({});
+    talat = talat[0];
     const serv1 = new Service({
-        to:mongoose.Types.ObjectId(kemo._id),
-        header:'This is a good header',
+        customer:mongoose.Types.ObjectId(kemo._id),
+        freelancer:mongoose.Types.ObjectId(talat._id),
+        job:mongoose.Types.ObjectId(post[0]._id),
         review:'He is a great person who helped me very well!',
-        state:1
+        rate:3
     })
     const serv2 = new Service({
-        to:mongoose.Types.ObjectId(kemo._id),
-        header:'This is a good header again',
+        customer:mongoose.Types.ObjectId(kemo._id),
+        freelancer:mongoose.Types.ObjectId(talat._id),
+        job:mongoose.Types.ObjectId(post[0]._id),
         review:'Job still in progress',
-        state:0
+        rate:0
     })
-    kemo.services.push(serv1);
-    kemo.services.push(serv2);
+    talat.services.push(serv1);
+    talat.services.push(serv2);
     await serv1.save();
     await serv2.save();
-    await kemo.save();
+    await talat.save();
 }
 
 addUsers().then(() => {
-    addServives().then(() => {
-        addPosts().then(() => {
+    addPosts().then(() => {
+        addServives().then(() => {
             mongoose.connection.close(); 
             console.log("Done");
         });

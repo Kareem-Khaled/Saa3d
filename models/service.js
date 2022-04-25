@@ -2,13 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const serviceSchema = new Schema({
-    header:String,
-    to:{
+    customer:{
         type: Schema.Types.ObjectId,
         ref: "User"
     },
+    freelancer:{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    job: {
+        type: Schema.Types.ObjectId,
+        ref: "Post"
+    },
     review: String,
-    state:Number
+    rate: Number
 });
 
 module.exports = mongoose.model('Service', serviceSchema);
