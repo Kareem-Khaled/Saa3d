@@ -9,7 +9,7 @@ const requests = require('../controllers/requests');
 const notifications = require('../controllers/notifications');
 
 router.route('/:serviceId')
-        .get(requests.jobFinished)
-        .post(requests.postReview);
+        .get(isLoggedIn, requests.jobFinished)
+        .post(isLoggedIn, requests.postReview);
 
 module.exports = router;

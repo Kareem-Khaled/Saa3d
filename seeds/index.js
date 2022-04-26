@@ -57,6 +57,7 @@ const addPosts = async () => {
             createdAt: Date.now(),
             updatedAt: null,
             comments:[],
+            isFinished:0
         })
         await post.save();
     }
@@ -73,14 +74,16 @@ const addServives = async () => {
         freelancer:mongoose.Types.ObjectId(talat._id),
         job:mongoose.Types.ObjectId(post[0]._id),
         review:'He is a great person who helped me very well!',
-        rate:3
+        rate:3,
+        isFinished: 1
     })
     const serv2 = new Service({
         customer:mongoose.Types.ObjectId(kemo._id),
         freelancer:mongoose.Types.ObjectId(talat._id),
         job:mongoose.Types.ObjectId(post[0]._id),
         review:'Job still in progress',
-        rate:0
+        rate:0,
+        isFinished: 0
     })
     talat.services.push(serv1);
     talat.services.push(serv2);
@@ -91,9 +94,7 @@ const addServives = async () => {
 
 addUsers().then(() => {
     addPosts().then(() => {
-        addServives().then(() => {
-            mongoose.connection.close(); 
-            console.log("Done");
-        });
+        mongoose.connection.close(); 
+        console.log("Done");
     });
 });

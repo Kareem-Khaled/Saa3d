@@ -6,15 +6,15 @@ const posts = require('../controllers/posts');
 
 //isLoggedIn
 router.route('/main')
-        .get(posts.renderMain);
+        .get(isLoggedIn, posts.renderMain);
 
 router.route('/post/new')
-      .get(posts.renderNewForm)
-      .post(posts.createPost);
+      .get(isLoggedIn, posts.renderNewForm)
+      .post(isLoggedIn, posts.createPost);
       
 router.route('/post/:postId')
-      .get(posts.showPost)
-      .delete(posts.deletePost)
-      .put(posts.updatePost);
+      .get(isLoggedIn, posts.showPost)
+      .delete(isLoggedIn, posts.deletePost)
+      .put(isLoggedIn, posts.updatePost);
 
 module.exports = router;

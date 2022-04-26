@@ -15,7 +15,8 @@ const serviceSchema = new Schema({
         ref: "Post"
     },
     review: String,
-    rate: Number
+    rate: Number,
+    isFinished: Boolean
 });
 
 module.exports = mongoose.model('Service', serviceSchema);

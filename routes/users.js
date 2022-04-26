@@ -25,11 +25,11 @@ router.route('/login')
 router.get('/profile/:userId', isLoggedIn, users.renderProfile);
 
 router.route('/profile/:userId/settings')
-      .get(users.renderSettings)
-      .post(upload.array('image'), users.updateSettings);
+      .get(isLoggedIn, users.renderSettings)
+      .post(isLoggedIn, upload.array('image'), users.updateSettings);
 
 router.route('/profile/:userId/notifications')
-        .get(notifications.renderNotifications);
+        .get(isLoggedIn, notifications.renderNotifications);
       
 router.get('/logout', users.logout);
 

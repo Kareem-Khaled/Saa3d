@@ -47,7 +47,7 @@
         </div>
         
         <% for(let service of user.services){ %> 
-            <% if(service.rate){ %> 
+            <% if(service.isFinished && service.rate){ %> 
                 <div class="card text-white bg-success mb-3 offset-1 col-10">
                     <div class="card-header d-flex justify-content-between">
                         <span class="card-title h5 text-warning ">@<%= service.customer.username%></span>
@@ -63,26 +63,44 @@
                     </div>
                 </div>
                 <% }else{ %> 
+                    <% if(service.customer.username == currentUser.username && service.isFinished){ %>
+                        <form action="/request/<%= service._id %>" method="post" >
+                    <% }else{ %>
+                        <form action="/request/<%= service._id %>" method="get">
+                    <% } %>   
                     <div class="card text-dark bg-light mb-3 offset-1 col-10">
                         <div class="card-header d-flex justify-content-between">
                             <span class="card-title h5 text-danger">@<%= service.customer.username%></span>
                             <span class="card-title display-6"><%= service.job.header %></span>
                            <% if(currentUser.username == user.username){ %>
-                                <form action="/request/<%= service._id %>" method="get">
                                     <button class="btn"> <i class="doneIcon fa fa-check-square-o fa-2x" ></i></button>
-                                </form>
-                            <% }else{ %>
+                            <% }else if(!service.isFinished){ %>
                                 <div>
                                 <% for(let i = 0; i < 5; i++){ %> 
                                     <i class="starIcon fa fa-star-o text-dark fa-sm"></i>
                                 <% } %> 
-                            </div>
-                            <% } %>  
+                                </div>
+                            <% }else{ %>  
+                                <div class="stars d-flex flex-row-reverse">
+                                    <% for(let i = 5; i > 0; i--){ %> 
+                                        <input class="star star-<%-i%>" id="star-<%-i%>" type="radio" name="rate" value="<%-i%>"/>
+                                        <label class="star star-<%-i%> <%= (i % 2 == 0 ? 'mx-1':'') %>" for="star-<%-i%>"></label> 
+                                    <% } %> 
+                                </div>
+                            <% } %> 
                         </div>
                             <div class="card-body">
-                                <span class="card-text h5"><%= service.review %></span>
-                                <span class="spinner-grow spinner-grow-sm"></span>
+                                <% if(service.customer.username == currentUser.username && service.isFinished){ %> 
+                                        <textarea class="form-control" name="review" placeholder="Leave a review...." cols="1" rows="1" required></textarea>
+                                      <div class="d-flex flex-row-reverse">
+                                        <button class="my-1 btn btn-success btn-sm" type="submit">Comment</button>
+                                      </div>
+                                    <% }else{ %>
+                                        <span class="card-text h5"><%= service.review %></span>
+                                        <span class="spinner-grow spinner-grow-sm"></span>
+                                    <% } %>  
                             </div>
                     </div>
+                </form>
                 <% } %>
         <% } %> 

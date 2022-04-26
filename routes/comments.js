@@ -9,10 +9,10 @@ const comments = require('../controllers/comments');
 const requests = require('../controllers/requests');
 const notifications = require('../controllers/notifications');
 
-router.route('/').post(notifications.addNotification, comments.addComment);
+router.route('/').post(isLoggedIn, notifications.addNotification, comments.addComment);
 
 router.route('/:commentId')
-        .post(requests.acceptOffer)
-        .delete(comments.deleteComment);
+        .post(isLoggedIn, requests.acceptOffer)
+        .delete(isLoggedIn, comments.deleteComment);
 
 module.exports = router;

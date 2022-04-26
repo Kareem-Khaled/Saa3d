@@ -40,6 +40,7 @@ module.exports.createPost = async (req, res) => {
         createdAt: Date.now(),
         updatedAt: null,
         comments:[],
+        isFinished: 0
     })
     await post.save();
     res.redirect('/main');

@@ -18,7 +18,8 @@ const postSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: "Comment"
         }
-    ]
+    ],
+    isFinished: Boolean
 });
 
 postSchema.post('findOneAndDelete', async function (doc) {
