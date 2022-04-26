@@ -58,9 +58,10 @@ module.exports.jobFinished = async (req, res) => {
 
 module.exports.postReview = async (req, res) => {
     const {serviceId} = req.params;
-    const {review, rate} = req.body;
+    let {review, rate} = req.body;
     const service = await Service.findById(serviceId);
     service.review = review;
+    if(!rate) rate = 1;
     service.rate = rate;
     const notification = new Notification({
         user: service.customer._id,
