@@ -5,18 +5,17 @@
       <div class="row mt-5">
         <div class="mt-3 col-12 col-md-8 offset-md-2">
           <div class="card border-light mb-3">
-           
-              <div class="card-header text-danger h4">Service Request</div>
+              <div class="card-header text-danger h4"><%- (currentUser.point ? 'Service Request':"You don't have any points") %></div>
             <div class="card-header">
-                <input type="text" class="form-control signInput" name="header" placeholder="Header..." required>
+                <input type="text" <%- (!currentUser.point ? 'disabled':'') %> class="form-control signInput" name="header" placeholder="Header..." required>
             </div>
             
             <div class="card-body">
-                <textarea class="form-control"  name="body" placeholder="Descripe your order...." cols="3" rows="3" required></textarea>
+                <textarea class="form-control" <%- (!currentUser.point ? 'disabled':'') %>  name="body" placeholder="Descripe your order...." cols="3" rows="3" required></textarea>
                 <div class="row mt-3">
                     <span class="col-md-6">
                         <p class="h6 d-flex">City:</p>
-                      <select class="form-control" name="city">
+                      <select class="form-control" name="city" <%- (!currentUser.point ? 'disabled':'') %>>
                         <% for(let city of cities){ %>
                           <option value="<%= city %>"><%= city %> </option>
                        <% } %> 
@@ -24,13 +23,13 @@
                     </span>
                     <span class="col-md-6">
                         <p class="h6 d-flex">Points:</p>
-                        <input class="form-control" type="number" name="point" min="1" value="1" max="<%= currentUser.point %>" required>
+                        <input class="form-control" <%- (!currentUser.point ? 'disabled':'') %> type="number" name="point" min="1" value="1" max="<%= currentUser.point %>" required>
                       </span>
                   </div>
             </div>
 
             <div class="card-footer">
-                <button class="mx-1 btn btn-success" type="submit">Post</button>
+                <button class="mx-1 btn btn-success" <%- (!currentUser.point ? 'disabled':'') %> type="submit">Post</button>
           </div>
  
           </div>

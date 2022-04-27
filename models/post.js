@@ -9,7 +9,7 @@ const postSchema = new Schema({
     },
     header: String,
     body: String,
-    point: String,
+    point: Number,
     city: String,
     createdAt: Date,
     updatedAt: Date,

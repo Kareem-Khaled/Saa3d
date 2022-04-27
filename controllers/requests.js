@@ -10,6 +10,7 @@ module.exports.acceptOffer = async (req, res) => {
     const post = await Post.findById(postId);
     const comment = await Comment.findById(commentId);
     const commentAuthor = await User.findById(comment.author);
+    const customer = await User.findById(post.author);
     const notification = new Notification({
         user: req.user._id,
         date: Date.now(),
@@ -20,7 +21,7 @@ module.exports.acceptOffer = async (req, res) => {
     commentAuthor.notifications.push(notification);
     await notification.save();
     // create service
-    service = new Service({
+    let service = new Service({
         customer:post.author,
         freelancer:comment.author,
         job:post._id,
@@ -29,7 +30,9 @@ module.exports.acceptOffer = async (req, res) => {
         isFinished : 0
     });
     commentAuthor.services.push(service);
+    customer.point -= post.point;
     await service.save();
+    await customer.save();
     await commentAuthor.save();
     await post.save();
     req.flash('success', `Your job in procces now`);
@@ -60,6 +63,7 @@ module.exports.postReview = async (req, res) => {
     const {serviceId} = req.params;
     let {review, rate} = req.body;
     const service = await Service.findById(serviceId);
+    const post = await Post.findById(service.job);
     service.review = review;
     if(!rate) rate = 1;
     service.rate = rate;
@@ -71,6 +75,7 @@ module.exports.postReview = async (req, res) => {
     });
     const freelancer = await User.findById(service.freelancer._id);
     freelancer.notifications.push(notification);
+    freelancer.point += post.point;
     await notification.save();
     await freelancer.save();
     await service.save();
