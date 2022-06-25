@@ -3,7 +3,7 @@
       <div class="row mt-5">
         <div class="mt-3 col-12 col-md-8 offset-md-2">
           <div class="card border-light mb-3">
-  
+           <input id = "notifyMe" type="hidden" value="<%= post.author._id %>">
             <div class="mainPost">
               <div class="card-header d-flex justify-content-between border-bottom">
                 <p class="text-danger h5">@<%= post.author.username %> </p>
@@ -46,7 +46,7 @@
               <form class="card-footer" method="POST" action="/post/<%= post._id %>/comments">
                   <textarea class="form-control" name="comment" placeholder="Write your offer...." cols="1" rows="1" required></textarea>
                 <div class="d-flex flex-row-reverse">
-                  <button class="my-1 btn btn-success btn-sm" type="submit">Comment</button>
+                  <button class="my-1 btn btn-success btn-sm notify" type="submit">Comment</button>
                 </div>
               </form>
             <% }else if(post.isFinished){ %>
@@ -104,7 +104,7 @@
                 <p class="text-danger h6 border-bottom">@<%= comment.author.username %> </p>
                 <% if(post.author.username == currentUser.username && !post.isFinished){ %> 
                     <form action="/post/<%= post._id %>/comments/<%= comment._id%>" method="post">
-                       <button class="btn"> <i class="approveBtn fa fa-check-square-o fa-lg" ></i></button>
+                       <button class="btn notify" value="<%= comment.author._id %>"> <i class="approveBtn fa fa-check-square-o fa-lg" ></i></button>
                     </form>
                   <% } %> 
                 <% if(comment.author.username == currentUser.username){ %> 
@@ -130,3 +130,4 @@
       </main>
     </div>
     <script src="/javascripts/post.js"></script>
+    <%- include('../partials/footer') %>

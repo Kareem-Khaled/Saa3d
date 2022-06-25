@@ -10,6 +10,8 @@ module.exports.renderNotifications = async (req, res) => {
         }
     });
     const notifications = user.notifications.sort(notfiCompare);
+    user.unreadNotf = 0;
+    await user.save();
     res.render('users/notifications', { notifications });
 };
 

@@ -7,7 +7,7 @@
                         <div class="row">
                         <img src="<%= user.image.url %> " class="profileImg rounded-circle mx-auto">
                         <div class="d-flex justify-content-center">
-                            <i class="onlineIcon fa fa-circle"></i>
+                            <i class="<%= user.isOnline? 'online':'offline'  %>  fa fa-circle"></i>
                             <p class="mx-1 h4"> <%= user.username %></p>
                         </div>
                         <% if(currentUser.username == user.username){ %>
@@ -110,3 +110,4 @@
                 </form>
                 <% } %>
         <% } %> 
+        <%- include('../partials/footer') %>

@@ -49,6 +49,7 @@ module.exports.register = async (req, res) => {
             service: 0,
             joinedAt: Date.now(),
             image: img,
+            isOnline: true,
             notifications: [],
             services: []
         });
@@ -102,17 +103,23 @@ module.exports.updateSettings = async (req, res, next) => {
  };
 
 // login user
-module.exports.login = (req, res) => {
+module.exports.login = async (req, res) => {
     req.flash('success', `Welcome back ${req.user.username}!!!`);
+    const user = await User.findById(req.user._id);
+    user.isOnline = true;
+    await user.save();
     // to know if user want to visit page before logging in
-    const redirectUrl = '/home';
-    delete req.session.returnTo;
+    // const redirectUrl = '/home';
+    // delete req.session.returnTo;
     res.redirect(`/profile/${req.user._id}`);
 };
 
 
 // logging user out
-module.exports.logout = (req, res) => {
+module.exports.logout = async (req, res) => {
+    const user = await User.findById(req.user._id);
+    user.isOnline = false;
+    await user.save();
     req.flash('success', `Good bye ${req.user.username} let us see you soon`);
     req.logout();
     res.redirect('/login');

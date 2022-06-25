@@ -19,6 +19,7 @@ module.exports.acceptOffer = async (req, res) => {
     });
     post.isFinished = 1;
     commentAuthor.notifications.push(notification);
+    commentAuthor.unreadNotf++;
     await notification.save();
     // create service
     let service = new Service({

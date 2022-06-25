@@ -1,5 +1,4 @@
 
-
 editBtn = document.querySelector('.editBtn');
 mainPost = document.querySelector('.mainPost');
 editPost = document.querySelector('.editPost');
@@ -10,7 +9,8 @@ function togglePost(){
     editPost.classList.toggle("d-none");
 }
 
-editBtn.addEventListener('click', () => { togglePost() });
-cancelEdit.addEventListener('click', () => { togglePost() });
-
+if(editBtn && cancelEdit){
+    editBtn.addEventListener('click', () => { togglePost() });
+    cancelEdit.addEventListener('click', () => { togglePost() });
+}
 

@@ -2,6 +2,13 @@
 const express = require("express");
 const app = express();
 
+// required to run sockets
+const server = require('http').createServer(app);
+
+// socket for run-time programming
+const socketIO = require('socket.io');
+const io = socketIO(server);
+
 // cookies
 const session = require("express-session");
 
@@ -21,7 +28,7 @@ const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 const commentRoutes = require("./routes/comments");
 const requestRoutes = require("./routes/requests");
-
+const socket = require('./sockets/socket');
 // to use mongodb
 const mongoose = require("mongoose");
 
@@ -43,6 +50,9 @@ mongoose
         console.log(err);
     });
 
+// to run socket functions
+socket(io);
+
 // Views folder and EJS setup
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -54,7 +64,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 app.engine("ejs", ejsMate);
-// to use css in public folder
+
+// to use static files in public folder
 app.use(express.static(path.join(__dirname, "public")));
 
 const sessionConfig = {
@@ -76,7 +87,7 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// to send flashes to all templates (local variables)
+// to send data to all templates (local variables)
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.success = req.flash("success");
@@ -103,6 +114,6 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("error", { err });
 });
 
-app.listen(3000, () => {
+server.listen(3000, () => {
     console.log("ON PORT 3000");
 });

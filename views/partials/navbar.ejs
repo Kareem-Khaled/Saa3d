@@ -1,15 +1,16 @@
 <link rel="stylesheet" href="/stylesheets/navbar.css" />
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <input id = 'currentUser' type="hidden" value="<%= currentUser._id %>">
   <div class="container-fluid">
     <a class="navbar-brand h6" href="/main">
       <img class = "navlogo" src="https://res.cloudinary.com/dokcpejo1/image/upload/v1648513749/Saa3d/logo.png"/>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-     <div class="container">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="container">
        <%- include('../partials/flash') %>
      </div>
       <div class="navbar-nav ms-auto">
@@ -30,7 +31,10 @@
                 </div>
 
                 <div class="m-auto">
-                  <a class = "nav-link" href="/profile/<%= currentUser._id %>/notifications"><i class="fa fa-bell fa-lg"></i></a>
+                    <span class="notfNum h6" style = <%= currentUser.unreadNotf? 'display:block': 'display:none';%>><%= currentUser.unreadNotf %></span>
+                  <a id = 'notfIcon' class = "nav-link" href="/profile/<%= currentUser._id %>/notifications"><i class="fa fa-bell fa-lg"></i></a>
+              </div>
+              <div class="m-auto">
               </div>
               
               <div class="m-auto">
@@ -42,9 +46,8 @@
             </div>
 
               <div class="m-auto">
-                <a class = "nav-link" href="/logout"><i class="fa fa-sign-out fa-lg"></i></a>
+                <a class = "nav-link logout" href="/logout"><i class="fa fa-sign-out fa-lg"></i></a>
               </div>
-              
           </div>
             <% } %>
       </div>

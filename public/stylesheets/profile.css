@@ -11,8 +11,12 @@ body {
     height: 8rem;
 }
   
-.onlineIcon, .doneIcon:hover{
-  color: green;
+.offline{
+    color: crimson;
+}
+
+.online, .doneIcon:hover{
+    color: green;
 }
 
 .starIcon{
