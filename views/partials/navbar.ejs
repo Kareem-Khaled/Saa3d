@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="/stylesheets/navbar.css" />
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <input id = 'currentUser' type="hidden" value="<%= currentUser._id %>">
+  <% if(currentUser){ %> 
+    <input id = 'currentUser' type="hidden" value="<%= currentUser._id %>">
+  <% } %> 
   <div class="container-fluid">
     <a class="navbar-brand h6" href="/main">
       <img class = "navlogo" src="https://res.cloudinary.com/dokcpejo1/image/upload/v1648513749/Saa3d/logo.png"/>

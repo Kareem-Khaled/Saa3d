@@ -79,7 +79,7 @@
                             <span class="card-title h5 text-danger">@<%= service.customer.username%></span>
                             <span class="card-title display-6"><%= service.job.header %></span>
                            <% if(currentUser.username == user.username){ %>
-                                    <button class="btn"> <i class="doneIcon fa fa-check-square-o fa-2x" ></i></button>
+                                <button class="btn notify" value="<%= service.customer._id %>"> <i class="doneIcon fa fa-check-square-o fa-2x" ></i></button>
                             <% }else if(!service.isFinished){ %>
                                 <div>
                                 <% for(let i = 0; i < 5; i++){ %> 
@@ -99,7 +99,7 @@
                                 <% if(service.customer.username == currentUser.username && service.isFinished){ %> 
                                         <textarea class="form-control" name="review" placeholder="Leave a review...." cols="1" rows="1" required></textarea>
                                       <div class="d-flex flex-row-reverse">
-                                        <button class="my-1 btn btn-success btn-sm" type="submit">Comment</button>
+                                        <button class="my-1 btn btn-success btn-sm notify" value="<%= service.freelancer._id %>" type="submit">Comment</button>
                                       </div>
                                     <% }else{ %>
                                         <span class="card-text h5"><%= service.review %></span>
