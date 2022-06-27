@@ -28,7 +28,9 @@ const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 const commentRoutes = require("./routes/comments");
 const requestRoutes = require("./routes/requests");
-const socket = require('./sockets/socket');
+const notificationSocket = require('./sockets/notification');
+const chatSocket = require('./sockets/chat');
+
 // to use mongodb
 const mongoose = require("mongoose");
 
@@ -50,8 +52,9 @@ mongoose
         console.log(err);
     });
 
-// to run socket functions
-socket(io);
+// to run sockets functions
+notificationSocket(io);
+chatSocket(io);
 
 // Views folder and EJS setup
 app.set("view engine", "ejs");

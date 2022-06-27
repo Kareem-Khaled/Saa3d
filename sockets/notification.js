@@ -9,5 +9,6 @@ module.exports = (io) =>{
         socket.on('newNotf', userId =>{
             io.to(userId).emit('addNotf');
         })
+        
     })
 }

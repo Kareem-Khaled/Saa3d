@@ -15,6 +15,10 @@
                                 <i class="fa fa-diamond pointIcon"></i>
                                 <span class="h6"><%= user.point %></span>
                             </div>
+                        <% }else{ %>
+                            <form action="/chat" method="POST">
+                                <button class = 'btn btn-success' value="<%= user._id %>" name="friend">Chat</button>
+                            </form>
                         <% } %> 
                     </div>
                 </div>

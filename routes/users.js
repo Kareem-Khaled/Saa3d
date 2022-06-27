@@ -30,6 +30,9 @@ router.route('/profile/:userId/settings')
 
 router.route('/profile/:userId/notifications')
         .get(isLoggedIn, notifications.renderNotifications);
+
+router.post('/chat', isLoggedIn, users.findChat);
+router.get('/chat/:chatId', isLoggedIn, users.renderChat);
       
 router.get('/logout', users.logout);
 
