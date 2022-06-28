@@ -42,4 +42,5 @@ socket.on('addMsg', msg =>{
         </div>`;
     }    
     messages.innerHTML += newMsg;
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
 })

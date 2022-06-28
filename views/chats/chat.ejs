@@ -5,25 +5,30 @@
 <div class=" text-danger h3">Kemo chat</div>
 <hr>
 <div id="messages"> 
-    <% for(let i = 0; i < msgs.length; i++){ %> 
+    <% for(let msg of msgs){ %> 
+        <% if(!currentUser._id.equals(msg.sender)){ %> 
         <div class="d-flex flex-row justify-content-start">
         <div>
-            <p class="small p-2 ms-3 mb-1 rounded-3 text-white bg-secondary"><span class="h6">lorem</span></p>
-            <p class="small rounded-3 text-muted text-start mx-4">00:06</p>
+            <p class="small p-2 ms-3 mb-1 rounded-3 text-white bg-secondary"><span class="h6"><%= msg.content %> </span></p>
+            <p class="small rounded-3 text-muted text-start mx-4"><%= new Date(msg.time).toLocaleString() %> </p>
         </div>
         </div>
+        <% }else{ %> 
         <div class="d-flex flex-row justify-content-end">
         <div>
-            <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary"><span class="h6">lore</span></p>
-            <p class="small rounded-3 text-muted text-end mx-4">00:06</p>
+            <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary"><span class="h6"><%= msg.content %> </span></p>
+            <p class="small rounded-3 text-muted text-end mx-4"><%= new Date(msg.time).toLocaleString() %> </p>
         </div>
         </div>
-    <% } %> 
+    <% }} %> 
     </div>
-    <div class="d-flex mb-3">
+    <div class="d-flex mb-5">
         <input id = 'msg' type="text" class="form-control" placeholder="Type message..." required>
         <button class="btn btn-success mx-1" id="sendBtn" type="submit">Send</button>
     </div>
 </div>
 <%- include('../partials/footer') %>
 <script src="/javascripts/sockets/chat.js"></script>
+<script>
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }) 
+</script> 

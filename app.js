@@ -28,6 +28,9 @@ const userRoutes = require("./routes/users");
 const postRoutes = require("./routes/posts");
 const commentRoutes = require("./routes/comments");
 const requestRoutes = require("./routes/requests");
+const chatRoutes = require("./routes/chats");
+
+// get sockets
 const notificationSocket = require('./sockets/notification');
 const chatSocket = require('./sockets/chat');
 
@@ -101,6 +104,7 @@ app.use((req, res, next) => {
 app.use("/", userRoutes);
 app.use("/", postRoutes);
 app.use("/request/", requestRoutes);
+app.use("/chat/", chatRoutes);
 app.use('/post/:postId/comments/', commentRoutes);
 
 
