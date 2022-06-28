@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="/stylesheets/main.css" />
+<% layout('layouts/boilerplate') %>
+    <div class="d-flex row mt-5">
+        <% if(!chats.length){ %> 
+        <h1> You don't have any chat yet. </h1>  
+        <% }else{ %>
+        <% for(chat of chats){ %> 
+           <% if(chat.online){ %>
+                 <a href="/chat/<%= chat.id %>" class="btn btn-lg btn-success col-3 mx-3 my-3"><span class="h5"> <%= chat.name %> </span></a>
+            <% }else{ %>
+                <a href="/chat/<%= chat.id %>" class="btn btn-lg btn-danger col-3 mx-3 my-3"><span class="h5"> <%= chat.name %> </span></a>
+            <% } %>  
+            <% }} %>  
+    </div>
+  <%- include('../partials/footer') %>

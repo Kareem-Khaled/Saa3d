@@ -5,6 +5,7 @@ const chats = require('../controllers/chats');
 const { isLoggedIn } = require('../middleware');
 
 router.post('/', isLoggedIn, chats.findChat);
+router.get('/:userId/main', isLoggedIn, chats.renderMain);
 router.get('/:chatId', isLoggedIn, chats.renderChat);
 
 module.exports = router;

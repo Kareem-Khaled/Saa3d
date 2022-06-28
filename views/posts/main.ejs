@@ -5,7 +5,7 @@
             <div class="mt-3 col-md-8 col-12">
               <div class="card border-light mb-3">
                 <div class="card-header d-flex justify-content-between">
-                  <div class="text-danger h5">@<%= post.author.username %> </div>
+                  <a href="/profile/<%= post.author._id %>"><span class="text-danger h5">@<%= post.author.username %></span></a>
                   <% 
                       const date =  (post.updatedAt ? post.updatedAt : post.createdAt);
                       const formattedDate = date.toLocaleString("en-GB", {

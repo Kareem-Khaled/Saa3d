@@ -38,3 +38,7 @@ p{
 .approveBtn, .viewIcon{
   color: gray
 }
+
+a{
+  text-decoration: none;
+}

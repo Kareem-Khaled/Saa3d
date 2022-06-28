@@ -46,11 +46,10 @@ module.exports.register = async (req, res) => {
             city, 
             gender,
             point: 0,
-            service: 0,
             joinedAt: Date.now(),
             image: img,
-            isOnline: true,
             notifications: [],
+            chats:[],
             services: []
         });
         if(rpassword != confirmPassword){

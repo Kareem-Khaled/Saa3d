@@ -34,6 +34,8 @@ const addUsers = async() =>{
                 filename: (i < 4 ? 'maleNoProfile' : 'femaleNoProfile')
             },
             notifications : [],
+            chats:[],
+            services: []
         });
         await User.register(user, '123');
     }

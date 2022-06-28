@@ -5,7 +5,7 @@
           <div class="card border-light mb-3">
             <div class="mainPost">
               <div class="card-header d-flex justify-content-between border-bottom">
-                <p class="text-danger h5">@<%= post.author.username %> </p>
+                <a href="/profile/<%= post.author._id %>"><span class="text-danger h5">@<%= post.author.username %></span></a>
                 <% if(post.author.username == currentUser.username){ %> 
                   <% if(!post.isFinished){ %> 
                   <div class="dropdown">

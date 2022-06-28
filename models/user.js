@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 require('../models/service');
 require('../models/notification');
+require('../models/chat');
 const ImageSchema = require('./image').schema;
 
 // using passport bcs it's easy to encrypt users passwords and login them in ...
@@ -36,6 +37,12 @@ const userSchema = new Schema({
         {
             type: Schema.Types.ObjectId,
             ref: "Notification"
+        }
+    ],
+    chats: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Chat"
         }
     ]
 });

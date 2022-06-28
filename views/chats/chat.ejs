@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="/stylesheets/chat.css" />
 <% layout('layouts/boilerplate') %>
-<div class="cover-container row mt-5 mb-3 bg-light">
+<div class="cover-container row mt-5 mb-3 mx-auto bg-light">
 <input id="chatId" type="hidden" value="<%= chatId %>">
-<div class=" text-danger h3">Kemo chat</div>
+<div class=" text-danger h3"><%= name %> chat</div>
 <hr>
 <div id="messages"> 
     <% for(let msg of msgs){ %> 
@@ -28,7 +28,5 @@
     </div>
 </div>
 <%- include('../partials/footer') %>
+<script src="/javascripts/chat.js"></script>
 <script src="/javascripts/sockets/chat.js"></script>
-<script>
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }) 
-</script> 
