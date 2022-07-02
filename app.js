@@ -122,7 +122,6 @@ app.use("/request/", requestRoutes);
 app.use("/chat/", chatRoutes);
 app.use('/post/:postId/comments/', commentRoutes);
 
-
 app.get("/", (req, res) => {
     res.render("home");
 });
@@ -136,6 +135,6 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("error", { err });
 });
 
-server.listen(3000, () => {
+server.listen(process.env.PORT, () => {
     console.log(`ON PORT ${process.env.PORT}`);
 });
