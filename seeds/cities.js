@@ -1,11 +1,15 @@
 // API to get Countries & Cities
 
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const axios = require('axios');
 const mongoose = require("mongoose");
 const Country = require('../models/country');
 
 mongoose
-    .connect("mongodb://127.0.0.1:27017/saa3d")
+    .connect(process.env.DB_URL)
     .then(() => {
         console.log("MONGO CONNECTION OPEN!!!");
     })
@@ -15,7 +19,7 @@ mongoose
     });
 
 async function getCountries() {
-  const res = await axios.get('http://api.geonames.org/searchJSON?q=egypt&username=egyptian');
+  const res = await axios.get(process.env.API_URL);
   return res.data;
 }
 

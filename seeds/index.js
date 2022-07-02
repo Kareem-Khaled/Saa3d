@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const mongoose = require("mongoose");
 
 const Post = require('../models/post');
@@ -5,7 +9,7 @@ const User = require('../models/user');
 const Service = require('../models/service');
 
 mongoose
-    .connect("mongodb://127.0.0.1:27017/saa3d")
+    .connect(process.env.DB_URL)
     .then(() => {
         console.log("MONGO CONNECTION OPEN!!!");
     })
@@ -14,24 +18,24 @@ mongoose
         console.log(err);
     });
 
-let users = ['Kareem', 'Talat', 'Shenawi', 'Mokn3', 'Fatma',
+let users = ['Dr.mostafa','Kareem', 'Talat', 'Shenawi', 'Mokn3', 'Fatma',
              'Olivia','Nancy', 'Sofiya'];
 
 let kemo;
 const addUsers = async() =>{
     await User.deleteMany({});
     for (let i = 0; i < users.length; i++) {
-        let points = Math.floor(Math.random() * 100);
+        // let points = Math.floor(Math.random() * 100);
         const user = new User({ 
             email:users[i]+'@gmail.com',
             username:users[i],
             city:'Assiut',
-            gender: (i < 4 ? 'male' : 'female'),
-            point:points,
+            gender: (i < 5 ? 'male' : 'female'),
+            point: 100,
             joinedAt: Date.now(),
             image:{
-                url: `https://res.cloudinary.com/dokcpejo1/image/upload/v1648513749/Saa3d/${(i < 4 ? 'maleNoProfile': 'femaleNoProfile')}`,
-                filename: (i < 4 ? 'maleNoProfile' : 'femaleNoProfile')
+                url: `https://res.cloudinary.com/dokcpejo1/image/upload/v1648513749/Saa3d/${(i < 5 ? 'maleNoProfile': 'femaleNoProfile')}`,
+                filename: (i < 5 ? 'maleNoProfile' : 'femaleNoProfile')
             },
             notifications : [],
             chats:[],

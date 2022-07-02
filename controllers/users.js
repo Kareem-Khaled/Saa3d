@@ -1,4 +1,8 @@
 // to access user db from models folder
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const User = require('../models/user');
 const Country = require('../models/country');
 const { cloudinary } = require('../cloudinary');
@@ -37,7 +41,7 @@ module.exports.register = async (req, res) => {
     try {
         const { remail, rusername, rpassword,confirmPassword ,city, gender } = req.body;
         let img = {
-            url: `https://res.cloudinary.com/dokcpejo1/image/upload/v1648513749/Saa3d/${(gender == 'male'? 'maleNoProfile': 'femaleNoProfile')}`,
+            url: `${process.env.UPLOAD_URL}${(gender == 'male'? 'maleNoProfile': 'femaleNoProfile')}`,
             filename: (gender == 'male'? 'maleNoProfile' : 'femaleNoProfile')
         };
         const user = new User({ 
@@ -45,7 +49,8 @@ module.exports.register = async (req, res) => {
             username:rusername, 
             city, 
             gender,
-            point: 0,
+            point: 100,
+            isOnline: true,
             joinedAt: Date.now(),
             image: img,
             notifications: [],

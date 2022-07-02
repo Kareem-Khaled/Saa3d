@@ -1,3 +1,8 @@
+// include it if we are just in the development mode
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 // to start server
 const express = require("express");
 const app = express();
@@ -37,6 +42,9 @@ const chatSocket = require('./sockets/chat');
 // to use mongodb
 const mongoose = require("mongoose");
 
+// mongo sessions
+const MongoDBStore = require("connect-mongo");
+
 // authanecation package
 const passport = require("passport");
 const localStrategy = require("passport-local");
@@ -45,8 +53,9 @@ const localStrategy = require("passport-local");
 const User = require("./models/user");
 
 // to start connection with mongodb
+//mongodb://127.0.0.1:27017/saa3d
 mongoose
-    .connect("mongodb://127.0.0.1:27017/saa3d")
+    .connect(process.env.DB_URL)
     .then(() => {
         console.log("MONGO CONNECTION OPEN!!!");
     })
@@ -75,7 +84,13 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 
 const sessionConfig = {
-    secret: "Kemo",
+    // store sessions in db instead of memory
+    store: MongoDBStore.create({
+        mongoUrl: process.env.DB_URL,
+        secret: process.env.SECRET,
+        touchAfter: 24 * 60 * 60 // not to save it every time the page is refreshed
+    }),
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -122,5 +137,5 @@ app.use((err, req, res, next) => {
 });
 
 server.listen(3000, () => {
-    console.log("ON PORT 3000");
+    console.log(`ON PORT ${process.env.PORT}`);
 });

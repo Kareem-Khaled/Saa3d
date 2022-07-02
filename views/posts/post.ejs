@@ -41,22 +41,22 @@
                     <p class="h5"><%= post.city %></p>
                 </div>              
             </div>
-            <% if(post.author.username != currentUser.username && !post.isFinished && currentUser.point >= post.point){ %> 
+            <% if(post.author.username != currentUser.username && !post.isFinished){ %> 
               <form class="card-footer" method="POST" action="/post/<%= post._id %>/comments">
                   <textarea class="form-control" name="comment" placeholder="Write your offer...." cols="1" rows="1" required></textarea>
                 <div class="d-flex flex-row-reverse">
                   <button class="my-1 btn btn-success btn-sm notify" value="<%= post.author._id %>" type="submit">Comment</button>
                 </div>
               </form>
-            <% }else if(post.isFinished){ %>
+            <% }if(post.isFinished){ %>
               <div class="card-footer">
                 <p class="text-danger h4">This job is closed</p>
               </div>  
-            <% }else if(currentUser.point < post.point){ %> 
-              <div class="card-footer">
+            <% }else if(post.author.username == currentUser.username && !post.isFinished && post.author.point < post.point){ %>
+               <div class="card-footer">
                 <p class="text-danger h4">You don't have enough points.</p>
               </div>
-            <% } %> 
+            <% } %>
             </div>
            
             <div class="editPost d-none">
@@ -101,7 +101,7 @@
               <div class="card-footer">
                <div class="d-flex justify-content-between">
                 <p class="text-danger h6 border-bottom">@<%= comment.author.username %> </p>
-                <% if(post.author.username == currentUser.username && !post.isFinished){ %> 
+                <% if(post.author.username == currentUser.username && !post.isFinished && post.author.point >= post.point){ %> 
                     <form action="/post/<%= post._id %>/comments/<%= comment._id%>" method="post">
                        <button class="btn notify" value="<%= comment.author._id %>"> <i class="approveBtn fa fa-check-square-o fa-lg" ></i></button>
                     </form>
