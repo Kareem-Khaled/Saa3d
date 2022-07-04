@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Chat = require('../models/chat');
+const Message = require('../models/message');
 
 module.exports.findChat = async (req, res) =>{
     const users = [String(req.user._id), req.body.friend];
@@ -29,15 +30,14 @@ module.exports.findChat = async (req, res) =>{
 
 module.exports.renderChat = async (req, res) =>{
     const chat = await Chat.findById(req.params.chatId).populate('messages');
-    let name = '';
+    let friend;
     for(let user of chat.users){
         if(!req.user._id.equals(user._id)){
-            const friend = await User.findById(user._id);
-            name = friend.username;
+            friend = await User.findById(user._id);
             break;
         }
     }
-    res.render('chats/chat', {chatId : chat._id, msgs: chat.messages, name});
+    res.render('chats/chat', {chatId : chat._id, msgs: chat.messages, friend});
 }
 
 module.exports.renderMain = async (req, res) =>{
@@ -47,10 +47,21 @@ module.exports.renderMain = async (req, res) =>{
         for(let user of chat.users){
             if(!user.equals(req.params.userId)){
                 const friend = await User.findById(user);
+                let lstMsg = "Start Chatting!";
+                if(chat.messages.length){
+                    lstMsg = await Message.findById(chat.messages[chat.messages.length - 1]._id);
+                    lstMsg = lstMsg.content;
+                    if(lstMsg.length > 30){
+                        lstMsg = lstMsg.slice(0, 30);
+                        lstMsg += ',......';
+                    }
+                }
                 chats.push({
                     'name': friend.username,
                     'id': chat._id, 
-                    'online': friend.isOnline
+                    'online': friend.isOnline,
+                    'imgSrc': friend.image.url,
+                    'lstMsg': lstMsg
                 });
             }
         }

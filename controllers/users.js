@@ -25,14 +25,36 @@ module.exports.renderProfile = async (req, res) => {
         populate: {
             path: 'job'
         }
+    }).populate({
+        path: 'services',
+        populate: {
+            path: 'freelancer'
+        }
     });
-    
-    res.render('users/profile', {user});
+    let rate = 0, servicesCnt = 0;
+    for(let r of user.services){
+        if(r.isFinished == 2 && r.freelancer._id.equals(user._id)){
+            rate += r.rate;
+            servicesCnt++;
+        }
+    }
+    let btn = req.query.f;
+    if(btn != 'to-me')
+        btn = 'from-me';
+    if(servicesCnt) 
+        rate = Math.floor(rate/servicesCnt);
+    else rate = 0;
+    res.render('users/profile', {user, rate, btn, servicesCnt});
 };
 
 module.exports.renderSettings = async (req, res) => {
     const user = await User.findById(req.params.userId);
     res.render('users/settings', {user});
+};
+
+module.exports.renderStanding = async (req, res) => {
+    const standing = await User.find({}).sort({'point': -1,'username':1 }).limit(10);
+    res.render("users/standing", {standing});
 };
 
 

@@ -33,14 +33,17 @@
                     <p class="h5"><%= user.city %></p>
                 </div>
                 <div class="col-6 col-md-3">
-                    <% for(let i = 0; i < 5; i++){ %> 
+                    <% for(let i = 0; i < rate; i++){ %> 
                         <i class="starIcon fa fa-star fa-lg"></i>
                     <% } %> 
-                    <p class="h5">Rate: 5</p>
+                    <% for(let i = 0; i < 5 - rate; i++){ %> 
+                        <i class="starIcon fa fa-star-o fa-lg"></i>
+                    <% } %> 
+                    <p class="h5">Rate: <%= rate %> </p>
                 </div>
                 <div class="col-6 col-md-3">
                     <i class="fa fa-cogs fa-lg "></i>
-                    <p class="h5">Services: <%= user.services.length %></p>
+                    <p class="h5">Services: <%= servicesCnt %></p>
                 </div>
                 <div class="col-6 col-md-3">
                     <i class="fa fa-calendar fa-lg "></i>
@@ -55,19 +58,30 @@
                 </div>                 
             </div>
         </div>
-        
+        <% if(currentUser.username == user.username){ %> 
+            <div class="d-flex justify-content-center mb-3">
+                <a class="<%= (btn == 'from-me' ? 'btn btn-success' : 'btn btn-light') %>" href="/profile/<%= currentUser._id %>?f=from-me">From Me</a>   
+                <a class="<%= (btn == 'to-me' ? 'btn btn-success' : 'btn btn-light') %>" href="/profile/<%= currentUser._id %>?f=to-me">To Me</a>   
+            </div>
+        <% } %> 
         <% for(let service of user.services){ %> 
+            <% if(btn == 'from-me' && !service.freelancer._id.equals(user._id)) continue %> 
+            <% if(btn == 'to-me' && !service.customer._id.equals(user._id)) continue %> 
             <% if(service.isFinished && service.rate){ %> 
                 <div class="card text-white bg-success mb-3 offset-1 col-10">
                     <div class="card-header d-flex justify-content-between">
-                        <span class="card-title h5 text-warning ">@<%= service.customer.username%></span>
-                        <span class="card-title display-6"><%= service.job.header %></span>
+                        <% if(btn == 'from-me'){ %> 
+                            <a href="/profile/<%= service.customer._id %>"><span class="card-title h5 text-warning">Customer: @<%= service.customer.username %></span></a>
+                        <% }else{ %> 
+                            <a href="/profile/<%= service.freelancer._id %>"><span class="card-title h5 text-warning">Freelancer: @<%= service.freelancer.username %></span></a>
+                        <% } %>
                         <div>
                         <% for(let i = 0; i < 5; i++){ %> 
                             <i class="starIcon fa fa-star<%- (i + 1 <= service.rate)? '':'-o' %> fa-sm"></i>
                         <% } %> 
                         </div>
                     </div>
+                    <a href="/post/<%= service.job._id %>"><span class="d-flex justify-content-center text-light display-6"><%= service.job.header %></span></a>
                     <div class="card-body">
                         <p class="card-text h5"><%= service.review %></p>
                     </div>
@@ -80,11 +94,14 @@
                     <% } %>   
                     <div class="card text-dark bg-light mb-3 offset-1 col-10">
                         <div class="card-header d-flex justify-content-between">
-                            <span class="card-title h5 text-danger">@<%= service.customer.username%></span>
-                            <span class="card-title display-6"><%= service.job.header %></span>
-                           <% if(currentUser.username == user.username){ %>
-                                <button class="btn notify" value="<%= service.customer._id %>"> <i class="doneIcon fa fa-check-square-o fa-2x" ></i></button>
-                            <% }else if(!service.isFinished){ %>
+                            <% if(btn == 'from-me'){ %> 
+                                <a href="/profile/<%= service.customer._id %>"><span class="card-title h5 text-danger">Customer: @<%= service.customer.username %></span></a>
+                            <% }else{ %> 
+                                <a href="/profile/<%= service.freelancer._id %>"><span class="card-title h5 text-danger">Freelancer: @<%= service.freelancer.username %></span></a>
+                            <% } %>
+                           <% if(currentUser._id.equals(service.freelancer._id)){ %>
+                                <button class="btn notify" value="<%= service.customer._id %>"> <i class="doneIcon fa fa-check-square-o fa-lg" ></i></button>
+                            <% }else if(!service.isFinished || currentUser.username != service.customer.username){ %>
                                 <div>
                                 <% for(let i = 0; i < 5; i++){ %> 
                                     <i class="starIcon fa fa-star-o text-dark fa-sm"></i>
@@ -98,7 +115,8 @@
                                     <% } %> 
                                 </div>
                             <% } %> 
-                        </div>
+                        </div>                        
+                        <a href="/post/<%= service.job._id %>"><span class="d-flex justify-content-center text-dark display-6"><%= service.job.header %></span></a>
                             <div class="card-body">
                                 <% if(service.customer.username == currentUser.username && service.isFinished){ %> 
                                         <textarea class="form-control" name="review" placeholder="Leave a review...." cols="1" rows="1" required></textarea>

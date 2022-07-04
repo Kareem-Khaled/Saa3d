@@ -16,7 +16,7 @@ const serviceSchema = new Schema({
     },
     review: String,
     rate: Number,
-    isFinished: Boolean
+    isFinished: Number
 });
 
 module.exports = mongoose.model('Service', serviceSchema);

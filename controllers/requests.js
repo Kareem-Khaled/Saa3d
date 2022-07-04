@@ -28,9 +28,10 @@ module.exports.acceptOffer = async (req, res) => {
         job:post._id,
         review:'Job still in progress',
         rate: 0,
-        isFinished : 0
+        isFinished : false
     });
     commentAuthor.services.push(service);
+    customer.services.push(service);
     customer.point -= post.point;
     await service.save();
     await customer.save();
@@ -77,6 +78,7 @@ module.exports.postReview = async (req, res) => {
     const freelancer = await User.findById(service.freelancer._id);
     freelancer.notifications.push(notification);
     freelancer.point += post.point;
+    service.isFinished = 2;
     await notification.save();
     await freelancer.save();
     await service.save();

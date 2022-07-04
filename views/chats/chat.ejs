@@ -2,7 +2,12 @@
 <% layout('layouts/boilerplate') %>
 <div class="cover-container row mt-5 mb-3 mx-auto bg-light">
 <input id="chatId" type="hidden" value="<%= chatId %>">
-<div class=" text-danger h3"><%= name %> chat</div>
+<a href="/profile/<%= friend._id %>"><span class="text-danger h5">
+    <div class="rounded-circle mt-3">
+        <img src="<%= friend.image.url %> " class="rounded-circle pic">
+      </div>    
+    <%= friend.username %></span>
+</a>
 <hr>
 <div id="messages"> 
     <% for(let msg of msgs){ %> 

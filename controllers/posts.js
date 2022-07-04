@@ -3,9 +3,21 @@ const User = require('../models/user');
 const Country = require('../models/country');
 
 module.exports.renderMain = async (req, res) => {
-    const posts = await Post.find({}).sort({'createdAt' : -1}).populate('author');
     const standing = await User.find({}).sort({'point': -1,'username':1 }).limit(10);
-    res.render('posts/main', {posts, standing});
+    let btn = req.query.f, posts;
+    if(btn == 'open'){
+        posts = await Post.find({"isFinished": {"$eq": false}
+                }).sort({'createdAt' : -1}).populate('author');
+    }
+    else if(btn == 'closed'){
+        posts = await Post.find({"isFinished": {"$eq": true}
+                 }).sort({'createdAt' : -1}).populate('author');
+    }
+    else{
+        posts = await Post.find({}).sort({'createdAt' : -1}).populate('author');
+        btn = 'all';
+    }
+    res.render('posts/main', {posts, standing, btn});
 };
 
 module.exports.renderNewForm = async (req, res) => {
@@ -43,7 +55,7 @@ module.exports.createPost = async (req, res) => {
         isFinished: 0
     })
     await post.save();
-    res.redirect('/main');
+    res.redirect('/main?f=all');
 };
 
 module.exports.updatePost = async (req, res) => {

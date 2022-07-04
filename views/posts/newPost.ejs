@@ -13,7 +13,7 @@
              -->
               <div class="card-header text-danger h4"><%- (currentUser.point ? 'Service Request':"You don't have any points") %></div>
             <div class="card-header">
-                <input type="text" <%- (!currentUser.point ? 'disabled':'') %> class="form-control signInput" name="header" placeholder="Header..." required>
+                <input type="text" <%- (!currentUser.point ? 'disabled':'') %> class="form-control signInput" name="header" placeholder="Header..." maxlength="26" required>
             </div>
             
             <div class="card-body">

@@ -100,7 +100,7 @@
             <% for(let comment of post.comments){ %>
               <div class="card-footer">
                <div class="d-flex justify-content-between">
-                <p class="text-danger h6 border-bottom">@<%= comment.author.username %> </p>
+                <a href="/profile/<%= comment.author._id %>"><span class="text-danger h6">@<%= comment.author.username %></span></a>
                 <% if(post.author.username == currentUser.username && !post.isFinished && post.author.point >= post.point){ %> 
                     <form action="/post/<%= post._id %>/comments/<%= comment._id%>" method="post">
                        <button class="btn notify" value="<%= comment.author._id %>"> <i class="approveBtn fa fa-check-square-o fa-lg" ></i></button>
