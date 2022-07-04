@@ -23,12 +23,14 @@ const logIn = {
   btn: document.querySelector('.logInBtn'),
   form: document.querySelector('.logIn'),
   input: document.getElementsByClassName('logInput'),
+  submit: document.querySelector('.logInSubmit')
 };
 
 const signUp = {
   btn: document.querySelector('.signUpBtn'),
   form: document.querySelector('.signUp'),
-  input: document.getElementsByClassName('signInput')
+  input: document.getElementsByClassName('signInput'),
+  submit: document.querySelector('.signUpSubmit')
 };
 
 function formDisplay(f1, f2){
@@ -46,3 +48,10 @@ function formDisplay(f1, f2){
 
 logIn.btn.addEventListener('click', () => { formDisplay(logIn, signUp) });
 signUp.btn.addEventListener('click', () => { formDisplay(signUp, logIn) });
+
+logIn.form.addEventListener("keyup", function(e) {
+  if (e.key == 'Enter') {
+    console.log(logIn.submit);
+    logIn.submit.click();
+  }
+});

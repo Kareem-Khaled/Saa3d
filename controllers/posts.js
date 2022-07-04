@@ -25,6 +25,10 @@ module.exports.renderNewForm = async (req, res) => {
     res.render('posts/newPost', {cities: cities[0].cities});
 };
 
+module.exports.renderSearch = async (req, res) => {
+    res.render('posts/search');
+};
+
 module.exports.showPost = async (req, res) => {
     const cities = await Country.find({name : 'Egypt'});
     const post = await Post.findById(req.params.postId).populate({
@@ -70,4 +74,33 @@ module.exports.deletePost = async (req, res) => {
     await Post.findByIdAndDelete(req.params.postId);
     req.flash('success', 'Succesfully deleted the post');
     res.redirect('/main');
+};
+
+module.exports.findData = async (req, res) => {
+   const {city, username, points} = req.body;
+    if(city){
+        let posts;
+        if(points)
+            posts = await Post.find({
+                'city' : {'$eq' : city}, 
+                'isFinished' : {'$eq' : false}, 
+                'point' : {'$gte' : Number(points)}
+            }).populate('author');
+        else
+            posts = await Post.find({'city' : {'$eq' : city}, 'isFinished' : {'$eq' : false}}).populate('author');
+        
+            res.render('posts/searchResult', {posts});
+    }
+    else if(points){
+            const posts = await Post.find({ 
+            'isFinished' : {'$eq' : false}, 
+            'point' : {'$gte' : Number(points)}
+        }).populate('author');
+        res.render('posts/searchResult', {posts});
+    }
+    else if(username){
+        const user = await User.findOne({'username' : {'$eq' : username}});
+        if(!user) return  res.redirect('/error');
+        res.redirect(`/profile/${user._id}`);
+    }
 };

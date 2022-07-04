@@ -29,7 +29,7 @@ const addUsers = async() =>{
         const user = new User({ 
             email:users[i]+'@gmail.com',
             username:users[i],
-            city:'Assiut',
+            city:'Asyut',
             gender: (i < 5 ? 'male' : 'female'),
             point: 100,
             joinedAt: Date.now(),

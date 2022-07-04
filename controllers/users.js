@@ -5,6 +5,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const User = require('../models/user');
 const Country = require('../models/country');
+const Post = require('../models/post');
 const { cloudinary } = require('../cloudinary');
 const { Image } = require('../models/user');
 
@@ -38,13 +39,14 @@ module.exports.renderProfile = async (req, res) => {
             servicesCnt++;
         }
     }
-    let btn = req.query.f;
-    if(btn != 'to-me')
-        btn = 'from-me';
+    let btn = req.query.f || 'from-me', posts;
+    if(btn == 'posted')
+        posts = await Post.find({"author": {"$eq": user._id}, "isFinished" :{"$eq": false}});
+    
     if(servicesCnt) 
         rate = Math.floor(rate/servicesCnt);
     else rate = 0;
-    res.render('users/profile', {user, rate, btn, servicesCnt});
+    res.render('users/profile', {user, rate, btn, servicesCnt, posts});
 };
 
 module.exports.renderSettings = async (req, res) => {
