@@ -26,7 +26,12 @@
                 <div class="rounded-circle">
                   <img src="<%= currentUser.image.url %>" class="rounded-circle navpic">
                 </div>
-                    <p class="h6 navp"><%= currentUser.username %> </p>
+                     <% 
+                        let username = currentUser.username;
+                        if(username.length > 10)
+                          username = username.substr(0, 10) + '...';
+                     %> 
+                    <p class="h6 navp"><%= username %> </p>
                   </a>
               </div>
 

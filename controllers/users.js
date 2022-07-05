@@ -70,7 +70,7 @@ module.exports.register = async (req, res) => {
         };
         const user = new User({ 
             email:remail, 
-            username:rusername, 
+            username:rusername.split(' ').join('_'), 
             city, 
             gender,
             point: 100,
