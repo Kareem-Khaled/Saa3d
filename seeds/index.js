@@ -58,7 +58,7 @@ const addPosts = async () => {
             author: mongoose.Types.ObjectId(kemo._id),
             header:`This is a good header - ${i}`,
             body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quos, cupiditate quod doloremque facere iure, perspiciatis a aspernatur, recusandae laboriosam quis quaerat sit qui vero ut expedita tempore atque asperiores. Some quick example text to build on the card title and make up the bulk of the card's content." ,
-            city:'Assiut',
+            city:'Asyut',
             point: points,
             createdAt: Date.now(),
             updatedAt: null,
